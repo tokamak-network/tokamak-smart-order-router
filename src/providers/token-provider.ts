@@ -33,6 +33,86 @@ export type TokenAccessor = {
   getAllTokens: () => Token[];
 };
 
+//
+export const USDC_TOKAMAK_GOERLI = new Token(
+  ChainId.TOKAMAK_GOERLI,
+  '0xD08a2917653d4E460893203471f0000826fb4034',
+  6,
+  'USDC',
+  'USD//C'
+);
+// export const USDT_TOKAMAK_GOERLI = new Token(
+//   ChainId.TOKAMAK_GOERLI,
+//   '0xdAC17F958D2ee523a2206206994597C13D831ec7',
+//   6,
+//   'USDT',
+//   'Tether USD'
+// );
+// export const WBTC_TOKAMAK_GOERLI = new Token(
+//   ChainId.TOKAMAK_GOERLI,
+//   '0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599',
+//   8,
+//   'WBTC',
+//   'Wrapped BTC'
+// );
+// export const DAI_TOKAMAK_GOERLI = new Token(
+//   ChainId.TOKAMAK_GOERLI,
+//   '0x6B175474E89094C44Da98b954EedeAC495271d0F',
+//   18,
+//   'DAI',
+//   'Dai Stablecoin'
+// );
+// export const FEI_TOKAMAK_GOERLI = new Token(
+//   ChainId.TOKAMAK_GOERLI,
+//   '0x956F47F50A910163D8BF957Cf5846D573E7f87CA',
+//   18,
+//   'FEI',
+//   'Fei USD'
+// );
+// export const UNI_TOKAMAK_GOERLI = new Token(
+//   ChainId.TOKAMAK_GOERLI,
+//   '0x1f9840a85d5af5bf1d1762f925bdaddc4201f984',
+//   18,
+//   'UNI',
+//   'Uniswap'
+// );
+
+export const TON_TOKAMAK_GOERLI = new Token(
+  ChainId.TOKAMAK_GOERLI,
+  '0x68c1F9620aeC7F2913430aD6daC1bb16D8444F00',
+  18,
+  'TON',
+  'TOKAMAK'
+);
+export const TOS_TOKAMAK_GOERLI = new Token(
+  ChainId.TOKAMAK_GOERLI,
+  '0x67F3bE272b1913602B191B3A68F7C238A2D81Bb9',
+  18,
+  'TOS',
+  'TONSTARTER'
+);
+export const AURA_TOKAMAK_GOERLI = new Token(
+  ChainId.TOKAMAK_GOERLI,
+  '0x80Eea029B5Cdb8A215Ae78e20B4fF81607F44A38',
+  18,
+  'AURA',
+  'AURA'
+);
+export const DOC_TOKAMAK_GOERLI = new Token(
+  ChainId.TOKAMAK_GOERLI,
+  '0x020A7c41212057B2A880191c07F7c7C7a71a8b57',
+  18,
+  'DOC',
+  'DOC'
+);
+export const LYDA_TOKAMAK_GOERLI = new Token(
+  ChainId.TOKAMAK_GOERLI,
+  '0x51C5E2D3dc8Ee66Dffdb1747dEB20d6b326E8bF2',
+  18,
+  'LYDA',
+  'LYDA'
+);
+
 // Some well known tokens on each chain for seeding cache / testing.
 export const USDC_MAINNET = new Token(
   ChainId.MAINNET,
@@ -623,6 +703,51 @@ export class TokenProvider implements ITokenProvider {
   }
 }
 
+export const TON_ON = (chainId: ChainId): Token => {
+  switch (chainId) {
+    case ChainId.TOKAMAK_GOERLI:
+      return TON_TOKAMAK_GOERLI;
+    default:
+      throw new Error(`Chain id: ${chainId} not supported`);
+  }
+};
+
+export const TOS_ON = (chainId: ChainId): Token => {
+  switch (chainId) {
+    case ChainId.TOKAMAK_GOERLI:
+      return TOS_TOKAMAK_GOERLI;
+    default:
+      throw new Error(`Chain id: ${chainId} not supported`);
+  }
+};
+
+export const AURA_ON = (chainId: ChainId): Token => {
+  switch (chainId) {
+    case ChainId.TOKAMAK_GOERLI:
+      return AURA_TOKAMAK_GOERLI;
+    default:
+      throw new Error(`Chain id: ${chainId} not supported`);
+  }
+};
+
+export const DOC_ON = (chainId: ChainId): Token => {
+  switch (chainId) {
+    case ChainId.TOKAMAK_GOERLI:
+      return DOC_TOKAMAK_GOERLI;
+    default:
+      throw new Error(`Chain id: ${chainId} not supported`);
+  }
+};
+
+export const LYDA_ON = (chainId: ChainId): Token => {
+  switch (chainId) {
+    case ChainId.TOKAMAK_GOERLI:
+      return LYDA_TOKAMAK_GOERLI;
+    default:
+      throw new Error(`Chain id: ${chainId} not supported`);
+  }
+};
+
 export const DAI_ON = (chainId: ChainId): Token => {
   switch (chainId) {
     case ChainId.MAINNET:
@@ -655,6 +780,8 @@ export const DAI_ON = (chainId: ChainId): Token => {
       return DAI_CELO_ALFAJORES;
     case ChainId.MOONBEAM:
       return DAI_MOONBEAM;
+    // case ChainId.TOKAMAK_GOERLI:
+    //   return DAI_TOKAMAK_GOERLI;
     default:
       throw new Error(`Chain id: ${chainId} not supported`);
   }
@@ -680,6 +807,8 @@ export const USDT_ON = (chainId: ChainId): Token => {
       return USDT_ARBITRUM;
     case ChainId.ARBITRUM_RINKEBY:
       return USDT_ARBITRUM_RINKEBY;
+    // case ChainId.TOKAMAK_GOERLI:
+    //   return USDT_TOKAMAK_GOERLI;
     default:
       throw new Error(`Chain id: ${chainId} not supported`);
   }
@@ -715,6 +844,8 @@ export const USDC_ON = (chainId: ChainId): Token => {
       return USDC_ETHEREUM_GNOSIS;
     case ChainId.MOONBEAM:
       return USDC_MOONBEAM;
+    case ChainId.TOKAMAK_GOERLI:
+      return USDC_TOKAMAK_GOERLI;
     default:
       throw new Error(`Chain id: ${chainId} not supported`);
   }
