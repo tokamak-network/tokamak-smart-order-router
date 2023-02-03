@@ -71,6 +71,7 @@ export class V3HeuristicGasModelFactory extends IOnChainGasModelFactory {
   }: BuildOnChainGasModelFactoryType): Promise<
     IGasModel<V3RouteWithValidQuote>
   > {
+    console.log('buildGasModel', chainId, gasPriceWei, amountToken)
     const l2GasData = l2GasDataProvider
       ? await l2GasDataProvider.getGasData()
       : undefined;
@@ -79,7 +80,7 @@ export class V3HeuristicGasModelFactory extends IOnChainGasModelFactory {
       chainId,
       poolProvider
     );
-
+    console.log('buildGasModel usdPool', usdPool)
     const calculateL1GasFees = async (
       route: V3RouteWithValidQuote[]
     ): Promise<{
@@ -264,7 +265,7 @@ export class V3HeuristicGasModelFactory extends IOnChainGasModelFactory {
           `Unable to find ${nativeCurrency.symbol} pool with the quote token, ${quoteToken.symbol} to produce gas adjusted costs. Using amountToken to calculate gas costs.`
         );
       }
-      
+
       // Highest liquidity pool for the non quote token / ETH
       // A pool with the non quote token / ETH should not be required and errors should be handled separately
       if (nativeAmountPool) {
@@ -275,7 +276,7 @@ export class V3HeuristicGasModelFactory extends IOnChainGasModelFactory {
           routeWithValidQuote.amount.quotient,
           routeWithValidQuote.quote.quotient
         );
-        
+
         const inputIsToken0 =
           nativeAmountPool.token0.address == nativeCurrency.address;
         // ratio of input / native
@@ -417,6 +418,8 @@ export class V3HeuristicGasModelFactory extends IOnChainGasModelFactory {
     swapConfig: SwapOptionsUniversalRouter,
     gasData: OptimismGasData
   ): [BigNumber, BigNumber] {
+    console.log('calculateOptimismToL1SecurityFee in')
+
     const { l1BaseFee, scalar, decimals, overhead } = gasData;
 
     const route: V3RouteWithValidQuote = routes[0]!;

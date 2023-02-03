@@ -89,8 +89,12 @@ export async function getHighestLiquidityV3USDPool(
   chainId: ChainId,
   poolProvider: IV3PoolProvider
 ): Promise<Pool> {
+  console.log('getHighestLiquidityV3USDPool usdGasTokensByChain[chainId]', usdGasTokensByChain[chainId])
+
   const usdTokens = usdGasTokensByChain[chainId];
   const wrappedCurrency = WRAPPED_NATIVE_CURRENCY[chainId]!;
+  console.log('getHighestLiquidityV3USDPool usdTokens', usdTokens)
+  console.log('getHighestLiquidityV3USDPool wrappedCurrency', wrappedCurrency)
 
   if (!usdTokens) {
     throw new Error(
@@ -114,6 +118,7 @@ export async function getHighestLiquidityV3USDPool(
     .value();
 
   const poolAccessor = await poolProvider.getPools(usdPools);
+  console.log('getHighestLiquidityV3USDPool poolAccessor', poolAccessor)
 
   const pools = _([
     FeeAmount.HIGH,
@@ -125,7 +130,11 @@ export async function getHighestLiquidityV3USDPool(
       const pools = [];
 
       for (const usdToken of usdTokens) {
+        console.log('getHighestLiquidityV3USDPool usdToken', usdToken)
+
         const pool = poolAccessor.getPool(wrappedCurrency, usdToken, feeAmount);
+        console.log('getHighestLiquidityV3USDPool pool', pool)
+
         if (pool) {
           pools.push(pool);
         }

@@ -32,6 +32,7 @@ export function buildTrade<TTradeType extends TradeType>(
   tradeType: TTradeType,
   routeAmounts: RouteWithValidQuote[]
 ): Trade<Currency, Currency, TTradeType> {
+  console.log('buildTrade routeAmounts',routeAmounts)
   /// Removed partition because of new mixedRoutes
   const v3RouteAmounts = _.filter(
     routeAmounts,
@@ -57,6 +58,8 @@ export function buildTrade<TTradeType extends TradeType>(
     v3RouteAmounts as V3RouteWithValidQuote[],
     (routeAmount: V3RouteWithValidQuote) => {
       const { route, amount, quote } = routeAmount;
+      console.log('buildTrade route',route)
+      console.log('buildTrade route.pools',route.pools)
 
       // The route, amount and quote are all in terms of wrapped tokens.
       // When constructing the Trade object the inputAmount/outputAmount must
