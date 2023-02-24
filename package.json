@@ -1,5 +1,5 @@
 {
-  "name": "@tokamak/smart-order-router",
+  "name": "@tokamak-network/smart-order-router",
   "version": "0.0.1",
   "description": "Tokamak Uniswap Smart Order Router",
   "main": "build/main/index.js",
@@ -7,7 +7,7 @@
   "module": "build/module/index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/tokamak-network/tokamak-smart-order-router"
+    "url": "https://github.com/tokamak-network/tokamak-smart-order-router.git"
   },
   "license": "GPL",
   "keywords": [],
@@ -115,5 +115,8 @@
   },
   "oclif": {
     "commands": "./cli/commands"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
   }
 }

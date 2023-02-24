@@ -12,3 +12,5 @@ types
 types/*
 .env
 cache/
+
+.npmrc
