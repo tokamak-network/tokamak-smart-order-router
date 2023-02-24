@@ -26,6 +26,8 @@ import {
   DAI_RINKEBY_2,
   FEI_MAINNET,
   ITokenProvider,
+  TON_TOKAMAK_GOERLI,
+  TOS_TOKAMAK_GOERLI,
   USDC_ARBITRUM,
   USDC_ARBITRUM_GOERLI,
   USDC_ETHEREUM_GNOSIS,
@@ -170,6 +172,10 @@ const baseTokensByChain: { [chainId in ChainId]?: Token[] } = {
     WBTC_MOONBEAM,
     WGLMR_MOONBEAM,
   ],
+  [ChainId.TOKAMAK_GOERLI]: [
+    TON_TOKAMAK_GOERLI,
+    TOS_TOKAMAK_GOERLI,
+  ],
 };
 
 export async function getV3CandidatePools({
@@ -206,6 +212,7 @@ export async function getV3CandidatePools({
   const allPoolsRaw = await subgraphProvider.getPools(tokenIn, tokenOut, {
     blockNumber,
   });
+  console.log("getV3CandidatePools allPoolsRaw", allPoolsRaw);
 
   log.info(
     { samplePools: allPoolsRaw.slice(0, 3) },
@@ -249,10 +256,14 @@ export async function getV3CandidatePools({
       filteredPools.push(pool);
     }
   }
+  console.log("filteredPools  ", filteredPools);
 
   const subgraphPoolsSorted = _(filteredPools)
     .sortBy((tokenListPool) => -tokenListPool.tvlUSD)
     .value();
+
+  console.log("subgraphPoolsSorted  ", subgraphPoolsSorted);
+
 
   log.info(
     `After filtering blocked tokens went from ${allPools.length} to ${subgraphPoolsSorted.length}.`
@@ -264,6 +275,7 @@ export async function getV3CandidatePools({
       .map((pool) => pool.id)
       .forEach((poolAddress) => poolAddressesSoFar.add(poolAddress));
   };
+  console.log("addToAddressSet  ", addToAddressSet);
 
   const baseTokens = baseTokensByChain[chainId] ?? [];
 
@@ -287,6 +299,9 @@ export async function getV3CandidatePools({
     .slice(0, topNWithBaseToken)
     .value();
 
+  console.log("topByBaseWithTokenIn  ", topByBaseWithTokenIn);
+
+
   const topByBaseWithTokenOut = _(baseTokens)
     .flatMap((token: Token) => {
       return _(subgraphPoolsSorted)
@@ -307,6 +322,9 @@ export async function getV3CandidatePools({
     .slice(0, topNWithBaseToken)
     .value();
 
+
+  console.log("topByBaseWithTokenOut  ", topByBaseWithTokenOut);
+
   let top2DirectSwapPool = _(subgraphPoolsSorted)
     .filter((subgraphPool) => {
       return (
@@ -319,6 +337,9 @@ export async function getV3CandidatePools({
     })
     .slice(0, topNDirectSwaps)
     .value();
+
+
+  console.log("top2DirectSwapPool  ", top2DirectSwapPool);
 
   if (top2DirectSwapPool.length == 0 && topNDirectSwaps > 0) {
     // If we requested direct swap pools but did not find any in the subgraph query.
@@ -352,6 +373,8 @@ export async function getV3CandidatePools({
   addToAddressSet(top2DirectSwapPool);
 
   const wrappedNativeAddress = WRAPPED_NATIVE_CURRENCY[chainId]?.address;
+
+  console.log("wrappedNativeAddress  ", wrappedNativeAddress);
 
   // Main reason we need this is for gas estimates, only needed if token out is not native.
   // We don't check the seen address set because if we've already added pools for getting native quotes

@@ -42,8 +42,39 @@ export class Quote extends BaseCommand {
     simulate: flags.boolean({ required: false, default: false }),
   };
 
+  // async run() {
+  //   const { flags } = this.parse(Quote);
+  //   const {
+  //     tokenIn: tokenInStr,
+  //     tokenOut: tokenOutStr,
+  //     amount: amountStr,
+  //     exactIn,
+  //     exactOut,
+  //     recipient,
+  //     debug,
+  //     topN,
+  //     topNTokenInOut,
+  //     topNSecondHop,
+  //     topNWithEachBaseToken,
+  //     topNWithBaseToken,
+  //     topNWithBaseTokenInSet,
+  //     topNDirectSwaps,
+  //     maxSwapsPerPath,
+  //     minSplits,
+  //     maxSplits,
+  //     distributionPercent,
+  //     chainId: chainIdNumb,
+  //     protocols: protocolsStr,
+  //     forceCrossProtocol,
+  //     forceMixedRoutes,
+  //     simulate,
+  //   } = flags;
+
   async run() {
     const { flags } = this.parse(Quote);
+
+    flags.protocols = 'v3';
+
     const {
       tokenIn: tokenInStr,
       tokenOut: tokenOutStr,
@@ -69,6 +100,7 @@ export class Quote extends BaseCommand {
       forceMixedRoutes,
       simulate,
     } = flags;
+
 
     console.log('run flags', flags)
     console.log('exactIn', exactIn)

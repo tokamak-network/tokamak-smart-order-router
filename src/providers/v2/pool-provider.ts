@@ -107,6 +107,8 @@ export class V2PoolProvider implements IV2PoolProvider {
       `getPools called with ${tokenPairs.length} token pairs. Deduped down to ${poolAddressSet.size}`
     );
 
+    console.log('sortedPoolAddresses',sortedPoolAddresses);
+
     const reservesResults = await this.getPoolsData<IReserves>(
       sortedPoolAddresses,
       'getReserves',
@@ -120,6 +122,7 @@ export class V2PoolProvider implements IV2PoolProvider {
           : ``
       }`
     );
+    console.log('reservesResults',reservesResults);
 
     const poolAddressToPool: { [poolAddress: string]: Pair } = {};
 
@@ -147,6 +150,7 @@ export class V2PoolProvider implements IV2PoolProvider {
 
       poolAddressToPool[poolAddress] = pool;
     }
+    console.log('invalidPools',invalidPools);
 
     if (invalidPools.length > 0) {
       log.info(
@@ -159,6 +163,8 @@ export class V2PoolProvider implements IV2PoolProvider {
         `${invalidPools.length} pools invalid after checking their slot0 and liquidity results. Dropping.`
       );
     }
+
+    console.log('poolAddressToPool',poolAddressToPool);
 
     const poolStrs = _.map(Object.values(poolAddressToPool), poolToString);
 

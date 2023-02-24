@@ -12,6 +12,9 @@ export function computeAllV3Routes(
   pools: Pool[],
   maxHops: number
 ): V3Route[] {
+
+  console.log("computeAllV3Routes");
+
   return computeAllRoutes<Pool, V3Route>(
     tokenIn,
     tokenOut,
@@ -77,6 +80,8 @@ export function computeAllRoutes<
   const poolsUsed = Array<boolean>(pools.length).fill(false);
   const routes: TRoute[] = [];
 
+  console.log("computeAllRoutes");
+
   const computeRoutes = (
     tokenIn: Token,
     tokenOut: Token,
@@ -127,6 +132,8 @@ export function computeAllRoutes<
   };
 
   computeRoutes(tokenIn, tokenOut, [], poolsUsed);
+  console.log(`Computed ${routes.length} possible routes for type ${routes[0]?.protocol}.`);
+  console.log(`routes`, routes);
 
   log.info(
     {

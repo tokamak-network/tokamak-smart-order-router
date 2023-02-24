@@ -60,8 +60,7 @@ const SUBGRAPH_URL_BY_CHAIN: { [chainId in ChainId]?: string } = {
   [ChainId.GÖRLI]:
     'https://api.thegraph.com/subgraphs/name/ianlapham/uniswap-v3-gorli',
   [ChainId.TOKAMAK_GOERLI]:
-    'https://api.thegraph.com/subgraphs/name/ianlapham/uniswap-v3-gorli',
-
+    'https://goerli.thegraph.tokamak.network/subgraphs/name/cd4761/uniswapv3-tokamak-goerli/graphql',
 };
 
 const PAGE_SIZE = 1000; // 1k is max possible query size from subgraph.
@@ -105,6 +104,9 @@ export class V3SubgraphProvider implements IV3SubgraphProvider {
       ? await providerConfig.blockNumber
       : undefined;
 
+
+    console.log("getPools ",_tokenIn, _tokenOut,'blockNumber', blockNumber);
+
     const query = gql`
       query getPools($pageSize: Int!, $id: String) {
         pools(
@@ -128,6 +130,9 @@ export class V3SubgraphProvider implements IV3SubgraphProvider {
         }
       }
     `;
+
+    console.log("query ",query);
+
 
     let pools: RawV3SubgraphPool[] = [];
 
@@ -162,6 +167,9 @@ export class V3SubgraphProvider implements IV3SubgraphProvider {
 
             lastId = pools[pools.length - 1]!.id;
           } while (poolsPage.length > 0);
+
+          console.log("** getPools  ",pools);
+
 
           return pools;
         };

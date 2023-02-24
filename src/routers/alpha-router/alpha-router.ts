@@ -397,6 +397,39 @@ export class AlphaRouter
       this.onChainQuoteProvider = onChainQuoteProvider;
     } else {
       switch (chainId) {
+        case ChainId.TOKAMAK_GOERLI:
+          this.onChainQuoteProvider = new OnChainQuoteProvider(
+            chainId,
+            provider,
+            this.multicall2Provider,
+            {
+              retries: 2,
+              minTimeout: 100,
+              maxTimeout: 1000,
+            },
+            {
+              multicallChunk: 110,
+              gasLimitPerCall: 1_200_000,
+              quoteMinSuccessRate: 0.1,
+            },
+            {
+              gasLimitOverride: 3_000_000,
+              multicallChunk: 45,
+            },
+            {
+              gasLimitOverride: 3_000_000,
+              multicallChunk: 45,
+            },
+            {
+              baseBlockOffset: -10,
+              rollback: {
+                enabled: true,
+                attemptsBeforeRollback: 1,
+                rollbackBlockOffset: -10,
+              },
+            }
+          );
+          break;
         case ChainId.OPTIMISM:
         case ChainId.OPTIMISTIC_KOVAN:
           this.onChainQuoteProvider = new OnChainQuoteProvider(
@@ -604,7 +637,6 @@ export class AlphaRouter
 
     console.log('AlphaRouter set swapRouterProvider' )
     console.log('AlphaRouter set l2GasDataProvider' )
-
     if (chainId == ChainId.OPTIMISM || chainId == ChainId.OPTIMISTIC_KOVAN) {
       this.l2GasDataProvider =
         optimismGasDataProvider ??
@@ -628,6 +660,9 @@ export class AlphaRouter
         new NodeJSCache(new NodeCache({ stdTTL: 30000, useClones: false }))
       );
     }
+
+    console.log('AlphaRouter tokenValidatorProvider ',tokenValidatorProvider )
+
   }
 
   public async routeToRatio(
@@ -1012,10 +1047,20 @@ export class AlphaRouter
       /// and tradeType === EXACT_INPUT
       if (
         protocolsSet.has(Protocol.MIXED) &&
-        (this.chainId === ChainId.MAINNET || this.chainId === ChainId.GÖRLI) &&
+        (this.chainId === ChainId.MAINNET || this.chainId === ChainId.GÖRLI
+          || this.chainId === ChainId.TOKAMAK_GOERLI ) &&
         tradeType == TradeType.EXACT_INPUT
       ) {
-        console.log('AlphaRouter Routing across MixedRoutes')
+        console.log('AlphaRouter Routing across MixedRoutes',
+            tokenIn,
+            tokenOut,
+            amounts,
+            percents,
+            quoteToken,
+            mixedRouteGasModel,
+            tradeType,
+            routingConfig
+            )
 
         log.info(
           { protocols, swapType: tradeType },
@@ -1037,7 +1082,7 @@ export class AlphaRouter
     }
 
     const routesWithValidQuotesByProtocol = await Promise.all(quotePromises);
-    console.log('AlphaRouter routesWithValidQuotesByProtocol')
+    console.log('AlphaRouter routesWithValidQuotesByProtocol', routesWithValidQuotesByProtocol)
 
     let allRoutesWithValidQuotes: RouteWithValidQuote[] = [];
     let allCandidatePools: CandidatePoolsBySelectionCriteria[] = [];
@@ -1045,11 +1090,17 @@ export class AlphaRouter
       routesWithValidQuotes,
       candidatePools,
     } of routesWithValidQuotesByProtocol) {
+
+      console.log('AlphaRouter routesWithValidQuotes', routesWithValidQuotes)
+      console.log('AlphaRouter candidatePools', candidatePools)
+
+
       allRoutesWithValidQuotes = [
         ...allRoutesWithValidQuotes,
         ...routesWithValidQuotes,
       ];
       allCandidatePools = [...allCandidatePools, candidatePools];
+
     }
     console.log('AlphaRouter allRoutesWithValidQuotes', allRoutesWithValidQuotes)
     console.log('AlphaRouter allCandidatePools', allCandidatePools)
@@ -1230,6 +1281,8 @@ export class AlphaRouter
     routesWithValidQuotes: V3RouteWithValidQuote[];
     candidatePools: CandidatePoolsBySelectionCriteria;
   }> {
+
+    console.log('Starting to get V3 quotes')
     log.info('Starting to get V3 quotes');
     // Fetch all the pools that we will consider routing via. There are thousands
     // of pools, so we filter them to a set of candidate pools that we expect will
@@ -1246,7 +1299,7 @@ export class AlphaRouter
       chainId: this.chainId,
     });
     const poolsRaw = poolAccessor.getAllPools();
-
+    console.log('poolsRaw', poolsRaw)
     // Drop any pools that contain fee on transfer tokens (not supported by v3) or have issues with being transferred.
     const pools = await this.applyTokenValidatorToPools(
       poolsRaw,
@@ -1287,9 +1340,16 @@ export class AlphaRouter
       maxSwapsPerPath
     );
 
+    console.log('getV3Quotes maxSwapsPerPath', maxSwapsPerPath);
+
+    console.log('getV3Quotes routes', routes);
+
     if (routes.length == 0) {
       return { routesWithValidQuotes: [], candidatePools };
     }
+
+    console.log('getV3Quotes swapType', swapType);
+    console.log('getV3Quotes TradeType.EXACT_INPUT', TradeType.EXACT_INPUT);
 
     // For all our routes, and all the fractional amounts, fetch quotes on-chain.
     const quoteFn =
@@ -1310,6 +1370,8 @@ export class AlphaRouter
       blockNumber: routingConfig.blockNumber,
     });
 
+    console.log('** getV3Quotes routesWithQuotes', routesWithQuotes);
+
     metric.putMetric(
       'V3QuotesLoad',
       Date.now() - beforeQuotes,
@@ -1329,6 +1391,10 @@ export class AlphaRouter
     for (const routeWithQuote of routesWithQuotes) {
       const [route, quotes] = routeWithQuote;
 
+      console.log('getV3Quotes route', route);
+      console.log('getV3Quotes quotes', quotes);
+
+
       for (let i = 0; i < quotes.length; i++) {
         const percent = percents[i]!;
         const amountQuote = quotes[i]!;
@@ -1339,6 +1405,11 @@ export class AlphaRouter
           initializedTicksCrossedList,
           gasEstimate,
         } = amountQuote;
+        console.log('getV3Quotes amountQuote', quote,
+        amount,
+        sqrtPriceX96AfterList,
+        initializedTicksCrossedList,
+        gasEstimate,);
 
         if (
           !quote ||

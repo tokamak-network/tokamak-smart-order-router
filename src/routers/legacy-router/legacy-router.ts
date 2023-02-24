@@ -103,6 +103,10 @@ export class LegacyRouter {
     const tokenIn = currencyIn.wrapped;
     const tokenOut = currencyOut.wrapped;
     const routes = await this.getAllRoutes(tokenIn, tokenOut, routingConfig);
+
+    console.log('routeExactIn routes', routes);
+
+
     const routeQuote = await this.findBestRouteExactIn(
       amountIn,
       tokenOut,
@@ -110,6 +114,7 @@ export class LegacyRouter {
       routingConfig
     );
 
+    console.log('routeExactIn routeQuote', routeQuote);
     if (!routeQuote) {
       return null;
     }
@@ -158,6 +163,9 @@ export class LegacyRouter {
     const tokenIn = currencyIn.wrapped;
     const tokenOut = currencyOut.wrapped;
     const routes = await this.getAllRoutes(tokenIn, tokenOut, routingConfig);
+
+    console.log('routeExactOut routes', routes)
+
     const routeQuote = await this.findBestRouteExactOut(
       amountOut,
       tokenIn,
@@ -357,6 +365,8 @@ export class LegacyRouter {
       tokenIn,
       MAX_HOPS
     );
+
+    console.log('getAllRoutes',routes);
 
     log.info(
       { routes: _.map(routes, routeToString) },

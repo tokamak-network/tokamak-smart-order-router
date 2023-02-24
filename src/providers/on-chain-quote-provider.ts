@@ -273,9 +273,14 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
       minTimeout: 25,
       maxTimeout: 250,
     },
+    // protected batchParams: BatchParams = {
+    //   multicallChunk: 150,
+    //   gasLimitPerCall: 1_000_000,
+    //   quoteMinSuccessRate: 0.2,
+    // },
     protected batchParams: BatchParams = {
       multicallChunk: 150,
-      gasLimitPerCall: 1_000_000,
+      gasLimitPerCall: 20_000,
       quoteMinSuccessRate: 0.2,
     },
     protected gasErrorFailureOverride: FailureOverrides = {
@@ -354,6 +359,9 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
     routesWithQuotes: RouteWithQuotes<TRoute>[];
     blockNumber: BigNumber;
   }> {
+
+    console.log('getQuotesManyData')
+
     const useMixedRouteQuoter =
       routes.some((route) => route.protocol === Protocol.V2) ||
       routes.some((route) => route.protocol === Protocol.MIXED);
@@ -363,10 +371,17 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
 
     let multicallChunk = this.batchParams.multicallChunk;
     let gasLimitOverride = this.batchParams.gasLimitPerCall;
+
+    console.log('getQuotesManyData gasLimitOverride', gasLimitOverride)
+
+
     const { baseBlockOffset, rollback } = this.blockNumberConfig;
 
     // Apply the base block offset if provided
     const originalBlockNumber = await this.provider.getBlockNumber();
+    console.log('getQuotesManyData originalBlockNumber', originalBlockNumber)
+
+
     const providerConfig: ProviderConfig = {
       ..._providerConfig,
       blockNumber:
@@ -393,6 +408,8 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
         return routeInputs;
       })
       .value();
+      console.log('getQuotesManyData inputs', inputs)
+
 
     const normalizedChunk = Math.ceil(
       inputs.length / Math.ceil(inputs.length / multicallChunk)
@@ -458,6 +475,11 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
 
               // QuoteChunk is pending or failed, so we try again
               const { inputs } = quoteState;
+              console.log('this.getQuoterAddress(useMixedRouteQuoter)', this.getQuoterAddress(useMixedRouteQuoter))
+              console.log('functionName', functionName);
+              console.log('functionParams', inputs);
+              console.log('providerConfig', providerConfig);
+              console.log('additionalConfig', gasLimitOverride);
 
               try {
                 totalCallsMade = totalCallsMade + 1;
@@ -502,6 +524,8 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
                 // Error from providers have huge messages that include all the calldata and fill the logs.
                 // Catch them and rethrow with shorter message.
                 if (err.message.includes('header not found')) {
+
+                  console.log('QuoteBatchFailed header not found' )
                   return {
                     status: 'failed',
                     inputs,
@@ -512,6 +536,8 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
                 }
 
                 if (err.message.includes('timeout')) {
+                  console.log('QuoteBatchFailed timeout')
+
                   return {
                     status: 'failed',
                     inputs,
@@ -524,6 +550,9 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
                 }
 
                 if (err.message.includes('out of gas')) {
+
+                  console.log('QuoteBatchFailed out of gas' )
+
                   return {
                     status: 'failed',
                     inputs,
@@ -739,6 +768,7 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
           successfulQuoteStates,
           (quoteState) => quoteState.results
         );
+        console.log('getQuotesManyData callResults', callResults)
 
         return {
           results: _.flatMap(callResults, (result) => result.results),
