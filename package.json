@@ -1,13 +1,13 @@
 {
-  "name": "@uniswap/smart-order-router",
-  "version": "3.5.0",
-  "description": "Uniswap Smart Order Router",
+  "name": "@tokamak/smart-order-router",
+  "version": "0.0.1",
+  "description": "Tokamak Uniswap Smart Order Router",
   "main": "build/main/index.js",
   "typings": "build/main/index.d.ts",
   "module": "build/module/index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Uniswap/smart-order-router.git"
+    "url": "https://github.com/tokamak-network/tokamak-smart-order-router"
   },
   "license": "GPL",
   "keywords": [],
