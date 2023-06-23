@@ -425,7 +425,7 @@ export const WRAPPED_NATIVE_CURRENCY: { [chainId in ChainId]: Token } = {
   ),
   [ChainId.TOKAMAK_GOERLI]: new Token(
     ChainId.TOKAMAK_GOERLI,
-    '0xF1B5DF98574C18d204fd91ec328f83Fca16337BE',
+    '0x4200000000000000000000000000000000000006',
     18,
     'WETH',
     'Wrapped Ether'

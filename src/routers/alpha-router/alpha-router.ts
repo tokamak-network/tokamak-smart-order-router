@@ -602,8 +602,8 @@ export class AlphaRouter
     this.swapRouterProvider =
       swapRouterProvider ?? new SwapRouterProvider(this.multicall2Provider);
 
-    console.log('AlphaRouter set swapRouterProvider' )
-    console.log('AlphaRouter set l2GasDataProvider' )
+    // console.log('AlphaRouter set swapRouterProvider' )
+    // console.log('AlphaRouter set l2GasDataProvider' )
 
     if (chainId == ChainId.OPTIMISM || chainId == ChainId.OPTIMISTIC_KOVAN) {
       this.l2GasDataProvider =
@@ -829,7 +829,7 @@ export class AlphaRouter
     partialRoutingConfig: Partial<AlphaRouterConfig> = {}
   ): Promise<SwapRoute | null> {
 
-    console.log('AlphaRouter route in' )
+    // console.log('AlphaRouter route in' )
 
     metric.putMetric(
       `QuoteRequestedForChain${this.chainId}`,
@@ -842,7 +842,7 @@ export class AlphaRouter
     const blockNumber =
       partialRoutingConfig.blockNumber ?? this.getBlockNumberPromise();
 
-    console.log('AlphaRouter blockNumber', blockNumber)
+    // console.log('AlphaRouter blockNumber', blockNumber)
     const routingConfig: AlphaRouterConfig = _.merge(
       {},
       DEFAULT_ROUTING_CONFIG_BY_CHAIN(this.chainId),
@@ -851,7 +851,7 @@ export class AlphaRouter
     );
 
     const { protocols } = routingConfig;
-    console.log('AlphaRouter protocols', protocols)
+    // console.log('AlphaRouter protocols', protocols)
     const currencyIn =
       tradeType == TradeType.EXACT_INPUT ? amount.currency : quoteCurrency;
     const currencyOut =
@@ -866,8 +866,8 @@ export class AlphaRouter
       amount,
       routingConfig
     );
-    console.log('AlphaRouter percents', percents)
-    console.log('AlphaRouter amounts', amounts)
+    // console.log('AlphaRouter percents', percents)
+    // console.log('AlphaRouter amounts', amounts)
 
 
     // Get an estimate of the gas price to use when estimating gas cost of different routes.
@@ -881,13 +881,13 @@ export class AlphaRouter
     );
 
     const quoteToken = quoteCurrency.wrapped;
-    console.log('AlphaRouter quoteToken', quoteToken)
+    // console.log('AlphaRouter quoteToken', quoteToken)
 
     const quotePromises: Promise<{
       routesWithValidQuotes: RouteWithValidQuote[];
       candidatePools: CandidatePoolsBySelectionCriteria;
     }>[] = [];
-    console.log('AlphaRouter quotePromises', quotePromises)
+    // console.log('AlphaRouter quotePromises', quotePromises)
     const protocolsSet = new Set(protocols ?? []);
 
     const [v3gasModel, mixedRouteGasModel] = await Promise.all([
@@ -909,8 +909,8 @@ export class AlphaRouter
         v2poolProvider: this.v2PoolProvider,
       }),
     ]);
-    console.log('AlphaRouter v3gasModel', v3gasModel)
-    console.log('AlphaRouter mixedRouteGasModel', mixedRouteGasModel)
+    // console.log('AlphaRouter v3gasModel', v3gasModel)
+    // console.log('AlphaRouter mixedRouteGasModel', mixedRouteGasModel)
 
     if (
       (protocolsSet.size == 0 ||
@@ -968,13 +968,13 @@ export class AlphaRouter
       }
     } else {
 
-      console.log('AlphaRouter V3')
+      // console.log('AlphaRouter V3')
 
       if (
         protocolsSet.has(Protocol.V3) ||
         (protocolsSet.size == 0 && !V2_SUPPORTED.includes(this.chainId))
       ) {
-        console.log('AlphaRouter Routing across V3')
+        // console.log('AlphaRouter Routing across V3')
 
         log.info({ protocols, swapType: tradeType }, 'Routing across V3');
         quotePromises.push(
@@ -992,7 +992,7 @@ export class AlphaRouter
       }
       if (protocolsSet.has(Protocol.V2)) {
 
-        console.log('AlphaRouter Routing across V2')
+        // console.log('AlphaRouter Routing across V2')
 
         log.info({ protocols, swapType: tradeType }, 'Routing across V2');
         quotePromises.push(
@@ -1015,7 +1015,7 @@ export class AlphaRouter
         (this.chainId === ChainId.MAINNET || this.chainId === ChainId.GÖRLI) &&
         tradeType == TradeType.EXACT_INPUT
       ) {
-        console.log('AlphaRouter Routing across MixedRoutes')
+        // console.log('AlphaRouter Routing across MixedRoutes')
 
         log.info(
           { protocols, swapType: tradeType },
@@ -1037,7 +1037,7 @@ export class AlphaRouter
     }
 
     const routesWithValidQuotesByProtocol = await Promise.all(quotePromises);
-    console.log('AlphaRouter routesWithValidQuotesByProtocol')
+    // console.log('AlphaRouter routesWithValidQuotesByProtocol')
 
     let allRoutesWithValidQuotes: RouteWithValidQuote[] = [];
     let allCandidatePools: CandidatePoolsBySelectionCriteria[] = [];
@@ -1051,8 +1051,8 @@ export class AlphaRouter
       ];
       allCandidatePools = [...allCandidatePools, candidatePools];
     }
-    console.log('AlphaRouter allRoutesWithValidQuotes', allRoutesWithValidQuotes)
-    console.log('AlphaRouter allCandidatePools', allCandidatePools)
+    // console.log('AlphaRouter allRoutesWithValidQuotes', allRoutesWithValidQuotes)
+    // console.log('AlphaRouter allCandidatePools', allCandidatePools)
 
     if (allRoutesWithValidQuotes.length == 0) {
       log.info({ allRoutesWithValidQuotes }, 'Received no valid quotes');
@@ -1061,7 +1061,7 @@ export class AlphaRouter
 
     // Given all the quotes for all the amounts for all the routes, find the best combination.
     const beforeBestSwap = Date.now();
-    console.log('AlphaRouter beforeBestSwap', beforeBestSwap)
+    // console.log('AlphaRouter beforeBestSwap', beforeBestSwap)
 
     const swapRouteRaw = await getBestSwapRoute(
       amount,
@@ -1093,8 +1093,8 @@ export class AlphaRouter
       tradeType,
       routeAmounts
     );
-    console.log('AlphaRouter trade', trade)
-    console.log('AlphaRouter swapConfig', swapConfig)
+    // console.log('AlphaRouter trade', trade)
+    // console.log('AlphaRouter swapConfig', swapConfig)
 
     let methodParameters: MethodParameters | undefined;
 
@@ -1134,7 +1134,7 @@ export class AlphaRouter
       methodParameters,
       blockNumber: BigNumber.from(await blockNumber),
     };
-    console.log('AlphaRouter swapRoute', swapRoute)
+    // console.log('AlphaRouter swapRoute', swapRoute)
 
     if (
       swapConfig &&
@@ -1145,7 +1145,7 @@ export class AlphaRouter
       if (!this.simulator) {
         throw new Error('Simulator not initialized!');
       }
-      console.log('AlphaRouter Starting simulation', swapConfig)
+      // console.log('AlphaRouter Starting simulation', swapConfig)
 
       log.info({ swapConfig, methodParameters }, 'Starting simulation');
       const fromAddress = swapConfig.simulate.fromAddress;
