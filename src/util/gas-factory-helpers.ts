@@ -154,6 +154,7 @@ export async function getHighestLiquidityV3USDPool(
   const maxPool = _.maxBy(pools, (pool) => pool.liquidity) as Pool;
 
   return maxPool;
+
 }
 
 export function getGasCostInUSD(

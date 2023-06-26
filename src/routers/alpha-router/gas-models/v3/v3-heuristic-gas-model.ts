@@ -71,7 +71,7 @@ export class V3HeuristicGasModelFactory extends IOnChainGasModelFactory {
   }: BuildOnChainGasModelFactoryType): Promise<
     IGasModel<V3RouteWithValidQuote>
   > {
-    console.log('buildGasModel', chainId, gasPriceWei, amountToken)
+    // console.log('buildGasModel', chainId, gasPriceWei, amountToken)
     const l2GasData = l2GasDataProvider
       ? await l2GasDataProvider.getGasData()
       : undefined;
@@ -80,7 +80,7 @@ export class V3HeuristicGasModelFactory extends IOnChainGasModelFactory {
       chainId,
       poolProvider
     );
-    console.log('buildGasModel usdPool', usdPool)
+    // console.log('buildGasModel usdPool', usdPool)
     const calculateL1GasFees = async (
       route: V3RouteWithValidQuote[]
     ): Promise<{
@@ -418,7 +418,7 @@ export class V3HeuristicGasModelFactory extends IOnChainGasModelFactory {
     swapConfig: SwapOptionsUniversalRouter,
     gasData: OptimismGasData
   ): [BigNumber, BigNumber] {
-    console.log('calculateOptimismToL1SecurityFee in')
+    // console.log('calculateOptimismToL1SecurityFee in')
 
     const { l1BaseFee, scalar, decimals, overhead } = gasData;
 

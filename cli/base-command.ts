@@ -315,7 +315,7 @@ export abstract class BaseCommand extends Command {
         ethEstimateGasSimulator
       );
 
-      console.log('chainId', chainId)
+      // console.log('chainId', chainId)
 
       const router = new AlphaRouter({
         provider,
@@ -333,7 +333,7 @@ export abstract class BaseCommand extends Command {
         simulator,
       });
 
-      console.log('router', router)
+      // console.log('router', router)
 
       this._swapToRatioRouter = router;
       this._router = router;

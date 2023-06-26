@@ -36,18 +36,18 @@ export type TokenAccessor = {
 //
 export const USDC_TOKAMAK_GOERLI = new Token(
   ChainId.TOKAMAK_GOERLI,
-  '0x713733bda7F5f9C15fd164242dF4d6292B412bAE',
+  '0x9c53338c48181035D96884946C34ea81818F743C',
   6,
   'USDC',
   'USD//C'
 );
-// export const USDT_TOKAMAK_GOERLI = new Token(
-//   ChainId.TOKAMAK_GOERLI,
-//   '0xdAC17F958D2ee523a2206206994597C13D831ec7',
-//   6,
-//   'USDT',
-//   'Tether USD'
-// );
+export const USDT_TOKAMAK_GOERLI = new Token(
+  ChainId.TOKAMAK_GOERLI,
+  '0xd1e405F1154BE88aC84f748C1BcE22442B12309F',
+  6,
+  'USDT',
+  'Tether USD'
+);
 // export const WBTC_TOKAMAK_GOERLI = new Token(
 //   ChainId.TOKAMAK_GOERLI,
 //   '0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599',
@@ -79,14 +79,14 @@ export const USDC_TOKAMAK_GOERLI = new Token(
 
 export const TON_TOKAMAK_GOERLI = new Token(
   ChainId.TOKAMAK_GOERLI,
-  '0x7c6b91D9Be155A6Db01f749217d76fF02A7227F2',
+  '0xFa956eB0c4b3E692aD5a6B2f08170aDE55999ACa',
   18,
   'TON',
   'TOKAMAK'
 );
 export const TOS_TOKAMAK_GOERLI = new Token(
   ChainId.TOKAMAK_GOERLI,
-  '0x50c5725949A6F0c72E6C4a641F24049A917DB0Cb',
+  '0x6AF3cb766D6cd37449bfD321D961A61B0515c1BC',
   18,
   'TOS',
   'TONSTARTER'

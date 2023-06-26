@@ -101,16 +101,11 @@ export class Quote extends BaseCommand {
       simulate,
     } = flags;
 
-
-    console.log('run flags', flags)
-    console.log('exactIn', exactIn)
-    console.log('exactOut', exactOut)
-
     if ((exactIn && exactOut) || (!exactIn && !exactOut)) {
       throw new Error('Must set either --exactIn or --exactOut.');
     }
 
-    console.log('protocolsStr', protocolsStr)
+    // console.log('protocolsStr', protocolsStr)
 
     let protocols: Protocol[] = [];
     if (protocolsStr) {
@@ -118,7 +113,7 @@ export class Quote extends BaseCommand {
         protocols = _.map(protocolsStr.split(','), (protocolStr) =>
           TO_PROTOCOL(protocolStr)
         );
-        console.log('protocols', protocols)
+        // console.log('protocols', protocols)
 
       } catch (err) {
         throw new Error(
@@ -128,7 +123,7 @@ export class Quote extends BaseCommand {
     }
 
     const chainId = ID_TO_CHAIN_ID(chainIdNumb);
-    console.log('chainId', chainId)
+    // console.log('chainId', chainId)
 
     const log = this.logger;
     const tokenProvider = this.tokenProvider;
@@ -141,7 +136,7 @@ export class Quote extends BaseCommand {
           tokenInStr
         )!;
 
-    console.log('tokenIn', tokenIn)
+    // console.log('tokenIn', tokenIn)
 
     const tokenOut: Currency = NATIVE_NAMES_BY_ID[chainId]!.includes(
       tokenOutStr
@@ -151,12 +146,12 @@ export class Quote extends BaseCommand {
           tokenOutStr
         )!;
 
-    console.log('tokenOut', tokenOut)
+    // console.log('tokenOut', tokenOut)
 
     let swapRoutes: SwapRoute | null;
     if (exactIn) {
       const amountIn = parseAmount(amountStr, tokenIn);
-      console.log('amountIn', amountIn)
+      // console.log('amountIn', amountIn)
 
       swapRoutes = await router.route(
         amountIn,
