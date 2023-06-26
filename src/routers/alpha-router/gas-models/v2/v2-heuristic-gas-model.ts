@@ -216,7 +216,7 @@ export class V2HeuristicGasModelFactory extends IV2GasModelFactory {
           reserve0: pool?.reserve0.toExact(),
           reserve1: pool?.reserve1.toExact(),
         },
-        `Could not find a valid WETH pool with ${token.symbol} for computing gas costs.`
+        `1. Could not find a valid WETH pool with ${token.symbol} for computing gas costs.`
       );
 
       return null;
@@ -233,7 +233,7 @@ export class V2HeuristicGasModelFactory extends IV2GasModelFactory {
 
     if (!usdTokens) {
       throw new Error(
-        `Could not find a USD token for computing gas costs on ${chainId}`
+        `2. Could not find a USD token for computing gas costs on ${chainId}`
       );
     }
 
@@ -251,7 +251,7 @@ export class V2HeuristicGasModelFactory extends IV2GasModelFactory {
     if (pools.length == 0) {
       log.error(
         { pools },
-        `Could not find a USD/WETH pool for computing gas costs.`
+        `3. Could not find a USD/WETH pool for computing gas costs.`
       );
       throw new Error(`Can't find USD/WETH pool for computing gas costs.`);
     }

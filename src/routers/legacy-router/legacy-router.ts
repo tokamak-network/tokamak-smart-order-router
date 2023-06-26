@@ -98,7 +98,8 @@ export class LegacyRouter {
     currencyOut: Currency,
     amountIn: CurrencyAmount,
     swapConfig?: SwapOptionsSwapRouter02,
-    routingConfig?: LegacyRoutingConfig
+    routingConfig?: LegacyRoutingConfig,
+    chainId?:number
   ): Promise<SwapRoute | null> {
     const tokenIn = currencyIn.wrapped;
     const tokenOut = currencyOut.wrapped;
@@ -146,7 +147,7 @@ export class LegacyRouter {
       methodParameters: swapConfig
         ? {
             ...this.buildMethodParameters(trade, swapConfig),
-            to: SWAP_ROUTER_02_ADDRESS,
+            to: SWAP_ROUTER_02_ADDRESS(chainId),
           }
         : undefined,
       blockNumber: BigNumber.from(0),
@@ -204,7 +205,7 @@ export class LegacyRouter {
       methodParameters: swapConfig
         ? {
             ...this.buildMethodParameters(trade, swapConfig),
-            to: SWAP_ROUTER_02_ADDRESS,
+            to: SWAP_ROUTER_02_ADDRESS(this.chainId),
           }
         : undefined,
       blockNumber: BigNumber.from(0),
@@ -431,6 +432,7 @@ export class LegacyRouter {
       })
       .flatMap<[Token, Token, FeeAmount]>(([tokenA, tokenB]) => {
         return [
+          [tokenA, tokenB, FeeAmount.LOWEST],
           [tokenA, tokenB, FeeAmount.LOW],
           [tokenA, tokenB, FeeAmount.MEDIUM],
           [tokenA, tokenB, FeeAmount.HIGH],

@@ -91,7 +91,7 @@ export class QuoteToRatio extends BaseCommand {
     );
     if (!pool) {
       log.error(
-        `Could not find pool. ${
+        `a. Could not find pool. ${
           debug ? '' : 'Run in debug mode for more info'
         }.`
       );

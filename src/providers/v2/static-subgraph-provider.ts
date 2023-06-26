@@ -48,6 +48,7 @@ const BASES_TO_CHECK_TRADES_AGAINST: ChainTokenList = {
   [ChainId.GNOSIS]: [],
   [ChainId.MOONBEAM]: [],
   [ChainId.TOKAMAK_GOERLI]: [],
+  [ChainId.TITAN]: [],
 };
 
 /**

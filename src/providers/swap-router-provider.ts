@@ -32,7 +32,10 @@ export interface ISwapRouterProvider {
 }
 
 export class SwapRouterProvider implements ISwapRouterProvider {
-  constructor(protected multicall2Provider: IMulticallProvider) {}
+  chainId
+  constructor(protected multicall2Provider: IMulticallProvider, _chainId?:number ) {
+    this.chainId = _chainId;
+  }
 
   public async getApprovalType(
     tokenInAmount: CurrencyAmount<Currency>,
@@ -54,7 +57,7 @@ export class SwapRouterProvider implements ISwapRouterProvider {
         [string, string],
         [ApprovalTypes]
       >({
-        address: SWAP_ROUTER_02_ADDRESS,
+        address: SWAP_ROUTER_02_ADDRESS(this.chainId),
         contractInterface: SwapRouter02__factory.createInterface(),
         functionName: 'getApprovalType',
         functionParams,

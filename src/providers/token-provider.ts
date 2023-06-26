@@ -33,7 +33,61 @@ export type TokenAccessor = {
   getAllTokens: () => Token[];
 };
 
-//
+// TITAN
+export const USDC_TITAN = new Token(
+  ChainId.TITAN,
+  '0x9c53338c48181035D96884946C34ea81818F743C',
+  6,
+  'USDC',
+  'USD//C'
+);
+export const USDT_TITAN = new Token(
+  ChainId.TITAN,
+  '0xd1e405F1154BE88aC84f748C1BcE22442B12309F',
+  6,
+  'USDT',
+  'Tether USD'
+);
+
+export const TON_TITAN = new Token(
+  ChainId.TITAN,
+  '0xFa956eB0c4b3E692aD5a6B2f08170aDE55999ACa',
+  18,
+  'TON',
+  'TOKAMAK'
+);
+
+export const TOS_TITAN = new Token(
+  ChainId.TITAN,
+  '0x6AF3cb766D6cd37449bfD321D961A61B0515c1BC',
+  18,
+  'TOS',
+  'TONSTARTER'
+);
+
+// export const AURA_TITAN = new Token(
+//   ChainId.TITAN,
+//   '0x3e7eF8f50246f725885102E8238CBba33F276747',
+//   18,
+//   'AURA',
+//   'AURA'
+// );
+// export const DOC_TITAN = new Token(
+//   ChainId.TITAN,
+//   '0x9e1028F5F1D5eDE59748FFceE5532509976840E0',
+//   18,
+//   'DOC',
+//   'DOC'
+// );
+// export const LYDA_TITAN = new Token(
+//   ChainId.TITAN,
+//   '0x3bB4445D30AC020a84c1b5A8A2C6248ebC9779D0',
+//   18,
+//   'LYDA',
+//   'LYDA'
+// );
+
+//TOKAMAK_GOERLI
 export const USDC_TOKAMAK_GOERLI = new Token(
   ChainId.TOKAMAK_GOERLI,
   '0x9c53338c48181035D96884946C34ea81818F743C',
@@ -48,6 +102,7 @@ export const USDT_TOKAMAK_GOERLI = new Token(
   'USDT',
   'Tether USD'
 );
+
 // export const WBTC_TOKAMAK_GOERLI = new Token(
 //   ChainId.TOKAMAK_GOERLI,
 //   '0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599',
@@ -707,6 +762,8 @@ export const TON_ON = (chainId: ChainId): Token => {
   switch (chainId) {
     case ChainId.TOKAMAK_GOERLI:
       return TON_TOKAMAK_GOERLI;
+    case ChainId.TITAN:
+      return TON_TITAN;
     default:
       throw new Error(`Chain id: ${chainId} not supported`);
   }
@@ -716,6 +773,8 @@ export const TOS_ON = (chainId: ChainId): Token => {
   switch (chainId) {
     case ChainId.TOKAMAK_GOERLI:
       return TOS_TOKAMAK_GOERLI;
+    case ChainId.TITAN:
+      return TOS_TITAN;
     default:
       throw new Error(`Chain id: ${chainId} not supported`);
   }
@@ -807,8 +866,10 @@ export const USDT_ON = (chainId: ChainId): Token => {
       return USDT_ARBITRUM;
     case ChainId.ARBITRUM_RINKEBY:
       return USDT_ARBITRUM_RINKEBY;
-    // case ChainId.TOKAMAK_GOERLI:
-    //   return USDT_TOKAMAK_GOERLI;
+    case ChainId.TOKAMAK_GOERLI:
+      return USDT_TOKAMAK_GOERLI;
+    case ChainId.TITAN:
+      return USDT_TITAN;
     default:
       throw new Error(`Chain id: ${chainId} not supported`);
   }
@@ -846,6 +907,8 @@ export const USDC_ON = (chainId: ChainId): Token => {
       return USDC_MOONBEAM;
     case ChainId.TOKAMAK_GOERLI:
       return USDC_TOKAMAK_GOERLI;
+    case ChainId.TITAN:
+      return USDC_TITAN;
     default:
       throw new Error(`Chain id: ${chainId} not supported`);
   }

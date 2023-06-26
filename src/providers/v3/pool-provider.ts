@@ -232,7 +232,7 @@ export class V3PoolProvider implements IV3PoolProvider {
       fee: feeAmount,
     });
 
-    if(this.chainId == ChainId.TOKAMAK_GOERLI) {
+    if(this.chainId == ChainId.TITAN  || this.chainId == ChainId.TOKAMAK_GOERLI) {
       poolAddress = computePoolAddress({
         factoryAddress: V3_CORE_FACTORY_ADDRESSES[this.chainId]!,
         tokenA: token0,

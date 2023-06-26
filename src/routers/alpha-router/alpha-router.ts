@@ -397,6 +397,7 @@ export class AlphaRouter
       this.onChainQuoteProvider = onChainQuoteProvider;
     } else {
       switch (chainId) {
+        case ChainId.TITAN:
         case ChainId.TOKAMAK_GOERLI:
           this.onChainQuoteProvider = new OnChainQuoteProvider(
             chainId,
@@ -633,7 +634,7 @@ export class AlphaRouter
       mixedRouteGasModelFactory ?? new MixedRouteHeuristicGasModelFactory();
 
     this.swapRouterProvider =
-      swapRouterProvider ?? new SwapRouterProvider(this.multicall2Provider);
+      swapRouterProvider ?? new SwapRouterProvider(this.multicall2Provider, this.chainId);
 
     // console.log('AlphaRouter set swapRouterProvider' )
     // console.log('AlphaRouter set l2GasDataProvider' )
@@ -1049,7 +1050,8 @@ export class AlphaRouter
       if (
         protocolsSet.has(Protocol.MIXED) &&
         (this.chainId === ChainId.MAINNET || this.chainId === ChainId.GÖRLI
-          || this.chainId === ChainId.TOKAMAK_GOERLI ) &&
+          || this.chainId === ChainId.TOKAMAK_GOERLI
+          || this.chainId === ChainId.TITAN ) &&
         tradeType == TradeType.EXACT_INPUT
       ) {
         log.info(
@@ -1771,7 +1773,8 @@ export class AlphaRouter
   private async buildSwapAndAddMethodParameters(
     trade: Trade<Currency, Currency, TradeType>,
     swapAndAddOptions: SwapAndAddOptions,
-    swapAndAddParameters: SwapAndAddParameters
+    swapAndAddParameters: SwapAndAddParameters,
+    chainId?:number
   ): Promise<MethodParameters> {
     const {
       swapOptions: { recipient, slippageTolerance, deadline, inputTokenPermit },
@@ -1815,7 +1818,7 @@ export class AlphaRouter
         approvalTypes.approvalTokenIn,
         approvalTypes.approvalTokenOut
       ),
-      to: SWAP_ROUTER_02_ADDRESS,
+      to: SWAP_ROUTER_02_ADDRESS(chainId),
     };
   }
 

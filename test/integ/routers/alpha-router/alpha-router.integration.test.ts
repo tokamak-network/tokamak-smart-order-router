@@ -245,7 +245,7 @@ describe('alpha router integration', () => {
     } else {
       tokenInBefore = await getBalanceAndApprove(
         alice,
-        SWAP_ROUTER_02_ADDRESS,
+        SWAP_ROUTER_02_ADDRESS(),
         tokenIn
       );
       tokenOutBefore = await hardhat.getBalance(alice._address, tokenOut);

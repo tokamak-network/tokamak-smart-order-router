@@ -174,7 +174,7 @@ export abstract class Simulator {
         await permit2Contract.allowance(
           fromAddress,
           inputAmount.currency.wrapped.address,
-          SWAP_ROUTER_02_ADDRESS
+          SWAP_ROUTER_02_ADDRESS(this.chainId)
         );
 
       const nowTimestampS = Math.round(Date.now() / 1000);
@@ -211,7 +211,7 @@ export abstract class Simulator {
 
       const allowance = await tokenContract.allowance(
         fromAddress,
-        SWAP_ROUTER_02_ADDRESS
+        SWAP_ROUTER_02_ADDRESS(this.chainId)
       );
       const hasAllowance = allowance.gte(
         BigNumber.from(inputAmount.quotient.toString())

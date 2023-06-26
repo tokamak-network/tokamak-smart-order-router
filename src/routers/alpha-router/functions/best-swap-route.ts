@@ -403,7 +403,7 @@ export async function getBestSwapRouteBy(
   }
 
   if (!bestSwap) {
-    log.info(`Could not find a valid swap`);
+    log.info(`c. Could not find a valid swap`);
     return undefined;
   }
 
@@ -431,7 +431,7 @@ export async function getBestSwapRouteBy(
     // They should all be pegged, and this is just an estimate, so we do a merge
     // to an arbitrary stable.
     throw new Error(
-      `Could not find a USD token for computing gas costs on ${chainId}`
+      `d. Could not find a USD token for computing gas costs on ${chainId}`
     );
   }
   const usdToken = usdGasTokensByChain[chainId]![0]!;

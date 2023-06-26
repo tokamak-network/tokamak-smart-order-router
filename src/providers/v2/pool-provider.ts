@@ -150,7 +150,7 @@ export class V2PoolProvider implements IV2PoolProvider {
 
       poolAddressToPool[poolAddress] = pool;
     }
-    console.log('invalidPools',invalidPools);
+    // console.log('invalidPools',invalidPools);
 
     if (invalidPools.length > 0) {
       log.info(

@@ -316,7 +316,7 @@ export class TenderlySimulator extends Simulator {
       const swap = {
         network_id: chainId,
         input: calldata,
-        to: SWAP_ROUTER_02_ADDRESS,
+        to: SWAP_ROUTER_02_ADDRESS(chainId),
         gas_estimate: true,
         value: currencyIn.isNative ? swapRoute.methodParameters.value : '0',
         from: fromAddress,

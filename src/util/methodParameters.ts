@@ -253,7 +253,7 @@ export function buildSwapMethodParameters(
         deadlineOrPreviousBlockhash: deadline,
         inputTokenPermit,
       }),
-      to: SWAP_ROUTER_02_ADDRESS,
+      to: SWAP_ROUTER_02_ADDRESS(chainId),
     };
   }
 

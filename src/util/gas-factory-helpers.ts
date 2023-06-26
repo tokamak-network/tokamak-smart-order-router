@@ -41,7 +41,7 @@ export async function getV2NativePool(
         reserve0: pool?.reserve0.toExact(),
         reserve1: pool?.reserve1.toExact(),
       },
-      `Could not find a valid WETH pool with ${token.symbol} for computing gas costs.`
+      `5. getV2NativePool: Could not find a valid WETH pool with ${token.symbol} for computing gas costs.`
     );
 
     return null;
@@ -56,7 +56,7 @@ export async function getHighestLiquidityV3NativePool(
 ): Promise<Pool | null> {
   const nativeCurrency = WRAPPED_NATIVE_CURRENCY[token.chainId as ChainId]!;
 
-  const nativePools = _([FeeAmount.HIGH, FeeAmount.MEDIUM, FeeAmount.LOW])
+  const nativePools = _([FeeAmount.HIGH, FeeAmount.MEDIUM, FeeAmount.LOW, FeeAmount.LOWEST])
     .map<[Token, Token, FeeAmount]>((feeAmount) => {
       return [nativeCurrency, token, feeAmount];
     })
@@ -64,7 +64,7 @@ export async function getHighestLiquidityV3NativePool(
 
   const poolAccessor = await poolProvider.getPools(nativePools);
 
-  const pools = _([FeeAmount.HIGH, FeeAmount.MEDIUM, FeeAmount.LOW])
+  const pools = _([FeeAmount.HIGH, FeeAmount.MEDIUM, FeeAmount.LOW, FeeAmount.LOWEST])
     .map((feeAmount) => {
       return poolAccessor.getPool(nativeCurrency, token, feeAmount);
     })
@@ -74,7 +74,7 @@ export async function getHighestLiquidityV3NativePool(
   if (pools.length == 0) {
     log.error(
       { pools },
-      `Could not find a ${nativeCurrency.symbol} pool with ${token.symbol} for computing gas costs.`
+      `6. Could not find a ${nativeCurrency.symbol} pool with ${token.symbol} for computing gas costs.`
     );
 
     return null;
@@ -98,7 +98,7 @@ export async function getHighestLiquidityV3USDPool(
 
   if (!usdTokens) {
     throw new Error(
-      `Could not find a USD token for computing gas costs on ${chainId}`
+      `7. Could not find a USD token for computing gas costs on ${chainId}`
     );
   }
 
@@ -301,7 +301,7 @@ export async function calculateGasUsed(
 
     if (!nativePool) {
       log.info(
-        'Could not find any V2 or V3 pools to convert the cost into the quote token'
+        '8. Could not find any V2 or V3 pools to convert the cost into the quote token'
       );
       gasCostQuoteToken = CurrencyAmount.fromRawAmount(quoteToken, 0);
     } else {

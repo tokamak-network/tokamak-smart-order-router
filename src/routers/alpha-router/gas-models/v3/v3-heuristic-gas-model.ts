@@ -139,7 +139,7 @@ export class V3HeuristicGasModelFactory extends IOnChainGasModelFactory {
         );
         if (!nativePool) {
           log.info(
-            'Could not find a pool to convert the cost into the quote token'
+            '4. Could not find a pool to convert the cost into the quote token'
           );
           gasCostL1QuoteToken = CurrencyAmount.fromRawAmount(quoteToken, 0);
         } else {

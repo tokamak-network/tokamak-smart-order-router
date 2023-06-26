@@ -3,6 +3,8 @@ import { Token } from '@uniswap/sdk-core';
 import {
   DAI_MAINNET,
   ITokenProvider,
+  TON_TITAN,
+  TOS_TITAN,
   USDC_MAINNET,
   USDT_MAINNET,
   WBTC_MAINNET,
@@ -49,6 +51,11 @@ export const BASES_TO_CHECK_TRADES_AGAINST = (
     [ChainId.MOONBEAM]: [WRAPPED_NATIVE_CURRENCY[ChainId.MOONBEAM]],
     [ChainId.TOKAMAK_GOERLI]: [
       WRAPPED_NATIVE_CURRENCY[ChainId.TOKAMAK_GOERLI]!,
+    ],
+    [ChainId.TITAN]: [
+      WRAPPED_NATIVE_CURRENCY[ChainId.TITAN]!,
+      TON_TITAN,
+      TOS_TITAN
     ],
   };
 };
