@@ -1,6 +1,6 @@
 {
   "name": "@tokamak-network/tokamak-smart-order-router",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Tokamak Uniswap Smart Order Router",
   "main": "build/main/index.js",
   "typings": "build/main/index.d.ts",
