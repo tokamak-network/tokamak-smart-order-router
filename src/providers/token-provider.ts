@@ -36,14 +36,14 @@ export type TokenAccessor = {
 // TITAN
 export const USDC_TITAN = new Token(
   ChainId.TITAN,
-  '0x9c53338c48181035D96884946C34ea81818F743C',
+  '0x46BbbC5f20093cB53952127c84F1Fbc9503bD6D9',
   6,
   'USDC',
   'USD//C'
 );
 export const USDT_TITAN = new Token(
   ChainId.TITAN,
-  '0xd1e405F1154BE88aC84f748C1BcE22442B12309F',
+  '0x2aCC8EFEd68f07DEAaD37f57A189677fB5655B46',
   6,
   'USDT',
   'Tether USD'
@@ -51,7 +51,7 @@ export const USDT_TITAN = new Token(
 
 export const TON_TITAN = new Token(
   ChainId.TITAN,
-  '0xFa956eB0c4b3E692aD5a6B2f08170aDE55999ACa',
+  '0x7c6b91D9Be155A6Db01f749217d76fF02A7227F2',
   18,
   'TON',
   'TOKAMAK'
@@ -59,7 +59,7 @@ export const TON_TITAN = new Token(
 
 export const TOS_TITAN = new Token(
   ChainId.TITAN,
-  '0x6AF3cb766D6cd37449bfD321D961A61B0515c1BC',
+  '0xD08a2917653d4E460893203471f0000826fb4034',
   18,
   'TOS',
   'TONSTARTER'
