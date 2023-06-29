@@ -62,7 +62,7 @@ const SUBGRAPH_URL_BY_CHAIN: { [chainId in ChainId]?: string } = {
   [ChainId.TOKAMAK_GOERLI]:
     'https://goerli.thegraph.tokamak.network/subgraphs/name/cd4761/uniswapv3-tokamak-goerli/graphql',
   [ChainId.TITAN]:
-    'https://goerli.thegraph.tokamak.network/subgraphs/name/cd4761/uniswapv3-tokamak-goerli/graphql',
+    'https://thegraph.titan.tokamak.network/subgraphs/name/cd4761/uniswapv3-tokamak/graphql',
 };
 
 const PAGE_SIZE = 1000; // 1k is max possible query size from subgraph.
