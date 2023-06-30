@@ -360,7 +360,7 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
     blockNumber: BigNumber;
   }> {
 
-    console.log('getQuotesManyData')
+    // console.log('getQuotesManyData')
 
     const useMixedRouteQuoter =
       routes.some((route) => route.protocol === Protocol.V2) ||
@@ -372,14 +372,14 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
     let multicallChunk = this.batchParams.multicallChunk;
     let gasLimitOverride = this.batchParams.gasLimitPerCall;
 
-    console.log('getQuotesManyData gasLimitOverride', gasLimitOverride)
+    // console.log('getQuotesManyData gasLimitOverride', gasLimitOverride)
 
 
     const { baseBlockOffset, rollback } = this.blockNumberConfig;
 
     // Apply the base block offset if provided
     const originalBlockNumber = await this.provider.getBlockNumber();
-    console.log('getQuotesManyData originalBlockNumber', originalBlockNumber)
+    // console.log('getQuotesManyData originalBlockNumber', originalBlockNumber)
 
 
     const providerConfig: ProviderConfig = {
@@ -408,7 +408,7 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
         return routeInputs;
       })
       .value();
-      console.log('getQuotesManyData inputs', inputs)
+      // console.log('getQuotesManyData inputs', inputs)
 
 
     const normalizedChunk = Math.ceil(
@@ -475,11 +475,11 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
 
               // QuoteChunk is pending or failed, so we try again
               const { inputs } = quoteState;
-              console.log('this.getQuoterAddress(useMixedRouteQuoter)', this.getQuoterAddress(useMixedRouteQuoter))
-              console.log('functionName', functionName);
-              console.log('functionParams', inputs);
-              console.log('providerConfig', providerConfig);
-              console.log('additionalConfig', gasLimitOverride);
+              // console.log('this.getQuoterAddress(useMixedRouteQuoter)', this.getQuoterAddress(useMixedRouteQuoter))
+              // console.log('functionName', functionName);
+              // console.log('functionParams', inputs);
+              // console.log('providerConfig', providerConfig);
+              // console.log('additionalConfig', gasLimitOverride);
 
               try {
                 totalCallsMade = totalCallsMade + 1;
@@ -525,7 +525,7 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
                 // Catch them and rethrow with shorter message.
                 if (err.message.includes('header not found')) {
 
-                  console.log('QuoteBatchFailed header not found' )
+                  // console.log('QuoteBatchFailed header not found' )
                   return {
                     status: 'failed',
                     inputs,
@@ -536,7 +536,7 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
                 }
 
                 if (err.message.includes('timeout')) {
-                  console.log('QuoteBatchFailed timeout')
+                  // console.log('QuoteBatchFailed timeout')
 
                   return {
                     status: 'failed',
@@ -551,7 +551,7 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
 
                 if (err.message.includes('out of gas')) {
 
-                  console.log('QuoteBatchFailed out of gas' )
+                  // console.log('QuoteBatchFailed out of gas' )
 
                   return {
                     status: 'failed',
@@ -768,7 +768,7 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
           successfulQuoteStates,
           (quoteState) => quoteState.results
         );
-        console.log('getQuotesManyData callResults', callResults)
+        // console.log('getQuotesManyData callResults', callResults)
 
         return {
           results: _.flatMap(callResults, (result) => result.results),
@@ -901,7 +901,7 @@ export class OnChainQuoteProvider implements IOnChainQuoteProvider {
             const amountStr = amount.toFixed(
               Math.min(amount.currency.decimals, 2)
             );
-            const routeStr = routeToString(route);
+            const routeStr = routeToString(route, this.chainId);
             debugFailedQuotes.push({
               route: routeStr,
               percent,

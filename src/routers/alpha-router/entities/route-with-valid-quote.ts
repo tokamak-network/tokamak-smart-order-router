@@ -155,6 +155,7 @@ export type V3RouteWithValidQuoteParams = {
   quoteToken: Token;
   tradeType: TradeType;
   v3PoolProvider: IV3PoolProvider;
+  chainId?: number
 };
 
 /**
@@ -184,13 +185,22 @@ export class V3RouteWithValidQuote implements IV3RouteWithValidQuote {
   public tradeType: TradeType;
   public poolAddresses: string[];
   public tokenPath: Token[];
+  public chainId = 0;
 
   public toString(): string {
-    return `${this.percent.toFixed(
-      2
-    )}% QuoteGasAdj[${this.quoteAdjustedForGas.toExact()}] Quote[${this.quote.toExact()}] Gas[${this.gasEstimate.toString()}] = ${routeToString(
-      this.route
-    )}`;
+    if (this.chainId == 5050 || this.chainId == 55004 ) {
+      return `${this.percent.toFixed(
+        2
+      )}% QuoteGasAdj[${this.quoteAdjustedForGas.toExact()}] Quote[${this.quote.toExact()}] Gas[${this.gasEstimate.toString()}] = ${routeToString(
+        this.route, this.chainId
+      )}`;
+    } else {
+      return `${this.percent.toFixed(
+        2
+      )}% QuoteGasAdj[${this.quoteAdjustedForGas.toExact()}] Quote[${this.quote.toExact()}] Gas[${this.gasEstimate.toString()}] = ${routeToString(
+        this.route
+      )}`;
+    }
   }
 
   constructor({
@@ -205,6 +215,7 @@ export class V3RouteWithValidQuote implements IV3RouteWithValidQuote {
     quoteToken,
     tradeType,
     v3PoolProvider,
+    chainId
   }: V3RouteWithValidQuoteParams) {
     this.amount = amount;
     this.rawQuote = rawQuote;
@@ -217,6 +228,7 @@ export class V3RouteWithValidQuote implements IV3RouteWithValidQuote {
     this.gasModel = gasModel;
     this.quoteToken = quoteToken;
     this.tradeType = tradeType;
+    if(chainId) this.chainId = chainId;
 
     const { gasEstimate, gasCostInToken, gasCostInUSD } =
       this.gasModel.estimateGasCost(this);
@@ -239,7 +251,7 @@ export class V3RouteWithValidQuote implements IV3RouteWithValidQuote {
       (p) =>
         v3PoolProvider.getPoolAddress(p.token0, p.token1, p.fee).poolAddress
     );
-
+      // console.log(' V3RouteWithValidQuote this.poolAddresses ',  this.poolAddresses )
     this.tokenPath = this.route.tokenPath;
   }
 }
@@ -257,6 +269,7 @@ export type MixedRouteWithValidQuoteParams = {
   tradeType: TradeType;
   v3PoolProvider: IV3PoolProvider;
   v2PoolProvider: IV2PoolProvider;
+  chainId?: number
 };
 
 /**
@@ -286,13 +299,28 @@ export class MixedRouteWithValidQuote implements IMixedRouteWithValidQuote {
   public tradeType: TradeType;
   public poolAddresses: string[];
   public tokenPath: Token[];
+  public chainId = 0;
+
+  public setChainId(_chainId: number) {
+    this.chainId = _chainId;
+  }
 
   public toString(): string {
-    return `${this.percent.toFixed(
-      2
-    )}% QuoteGasAdj[${this.quoteAdjustedForGas.toExact()}] Quote[${this.quote.toExact()}] Gas[${this.gasEstimate.toString()}] = ${routeToString(
-      this.route
-    )}`;
+
+    if(this.chainId == 5050 || this.chainId == 55004){
+      return `${this.percent.toFixed(
+        2
+      )}% QuoteGasAdj[${this.quoteAdjustedForGas.toExact()}] Quote[${this.quote.toExact()}] Gas[${this.gasEstimate.toString()}] = ${routeToString(
+        this.route, this.chainId
+      )}`;
+    } else {
+      return `${this.percent.toFixed(
+        2
+      )}% QuoteGasAdj[${this.quoteAdjustedForGas.toExact()}] Quote[${this.quote.toExact()}] Gas[${this.gasEstimate.toString()}] = ${routeToString(
+        this.route
+      )}`;
+    }
+
   }
 
   constructor({
@@ -308,6 +336,7 @@ export class MixedRouteWithValidQuote implements IMixedRouteWithValidQuote {
     tradeType,
     v3PoolProvider,
     v2PoolProvider,
+    chainId
   }: MixedRouteWithValidQuoteParams) {
     this.amount = amount;
     this.rawQuote = rawQuote;
@@ -320,6 +349,7 @@ export class MixedRouteWithValidQuote implements IMixedRouteWithValidQuote {
     this.gasModel = mixedRouteGasModel;
     this.quoteToken = quoteToken;
     this.tradeType = tradeType;
+    if(chainId) this.chainId = chainId;
 
     const { gasEstimate, gasCostInToken, gasCostInUSD } =
       this.gasModel.estimateGasCost(this);
@@ -342,7 +372,7 @@ export class MixedRouteWithValidQuote implements IMixedRouteWithValidQuote {
         ? v3PoolProvider.getPoolAddress(p.token0, p.token1, p.fee).poolAddress
         : v2PoolProvider.getPoolAddress(p.token0, p.token1).poolAddress;
     });
-
+    // console.log(' MixedRouteWithValidQuote this.poolAddresses ',  this.poolAddresses )
     this.tokenPath = this.route.path;
   }
 }

@@ -59,7 +59,8 @@ export class V2QuoteProvider implements IV2QuoteProvider {
   private async getQuotes(
     amounts: CurrencyAmount[],
     routes: V2Route[],
-    tradeType: TradeType
+    tradeType: TradeType,
+    chainId?: number
   ): Promise<{ routesWithQuotes: V2RouteWithQuotes[] }> {
     const routesWithQuotes: V2RouteWithQuotes[] = [];
 
@@ -117,7 +118,7 @@ export class V2QuoteProvider implements IV2QuoteProvider {
       ) {
         debugStrs.push(
           `${[
-            routeToString(route),
+            routeToString(route, chainId),
           ]} Input: ${insufficientInputAmountErrorCount} Reserves: ${insufficientReservesErrorCount} }`
         );
       }

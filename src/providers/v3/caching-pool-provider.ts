@@ -43,6 +43,7 @@ export class CachingV3PoolProvider implements IV3PoolProvider {
     const poolAddressToPool: { [poolAddress: string]: Pool } = {};
 
     for (const [tokenA, tokenB, feeAmount] of tokenPairs) {
+
       const { poolAddress, token0, token1 } = this.getPoolAddress(
         tokenA,
         tokenB,

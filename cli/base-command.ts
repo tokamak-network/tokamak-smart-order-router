@@ -350,10 +350,11 @@ export abstract class BaseCommand extends Command {
     blockNumber: BigNumber,
     estimatedGasUsed: BigNumber,
     gasPriceWei: BigNumber,
-    simulationStatus?: SimulationStatus
+    simulationStatus?: SimulationStatus,
+    chainId?: number
   ) {
     this.logger.info(`Best Route:`);
-    this.logger.info(`${routeAmountsToString(routeAmounts)}`);
+    this.logger.info(`${routeAmountsToString(routeAmounts, chainId)}`);
 
     this.logger.info(`\tRaw Quote Exact In:`);
     this.logger.info(

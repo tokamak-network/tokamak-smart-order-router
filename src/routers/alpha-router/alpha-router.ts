@@ -663,7 +663,7 @@ export class AlphaRouter
       );
     }
 
-    console.log('AlphaRouter tokenValidatorProvider ',tokenValidatorProvider )
+    // console.log('AlphaRouter tokenValidatorProvider ',tokenValidatorProvider )
 
   }
 
@@ -1081,8 +1081,8 @@ export class AlphaRouter
       candidatePools,
     } of routesWithValidQuotesByProtocol) {
 
-      console.log('AlphaRouter routesWithValidQuotes', routesWithValidQuotes)
-      console.log('AlphaRouter candidatePools', candidatePools)
+      // console.log('AlphaRouter routesWithValidQuotes', routesWithValidQuotes)
+      // console.log('AlphaRouter candidatePools', candidatePools)
 
 
       allRoutesWithValidQuotes = [
@@ -1272,7 +1272,7 @@ export class AlphaRouter
     candidatePools: CandidatePoolsBySelectionCriteria;
   }> {
 
-    console.log('Starting to get V3 quotes')
+    // console.log('Starting to get V3 quotes')
     log.info('Starting to get V3 quotes');
     // Fetch all the pools that we will consider routing via. There are thousands
     // of pools, so we filter them to a set of candidate pools that we expect will
@@ -1289,7 +1289,7 @@ export class AlphaRouter
       chainId: this.chainId,
     });
     const poolsRaw = poolAccessor.getAllPools();
-    console.log('poolsRaw', poolsRaw)
+    // console.log('poolsRaw', poolsRaw)
     // Drop any pools that contain fee on transfer tokens (not supported by v3) or have issues with being transferred.
     const pools = await this.applyTokenValidatorToPools(
       poolsRaw,
@@ -1330,16 +1330,16 @@ export class AlphaRouter
       maxSwapsPerPath
     );
 
-    console.log('getV3Quotes maxSwapsPerPath', maxSwapsPerPath);
+    // console.log('getV3Quotes maxSwapsPerPath', maxSwapsPerPath);
 
-    console.log('getV3Quotes routes', routes);
+    // console.log('getV3Quotes routes', routes);
 
     if (routes.length == 0) {
       return { routesWithValidQuotes: [], candidatePools };
     }
 
-    console.log('getV3Quotes swapType', swapType);
-    console.log('getV3Quotes TradeType.EXACT_INPUT', TradeType.EXACT_INPUT);
+    // console.log('getV3Quotes swapType', swapType);
+    // console.log('getV3Quotes TradeType.EXACT_INPUT', TradeType.EXACT_INPUT);
 
     // For all our routes, and all the fractional amounts, fetch quotes on-chain.
     const quoteFn =
@@ -1360,7 +1360,7 @@ export class AlphaRouter
       blockNumber: routingConfig.blockNumber,
     });
 
-    console.log('** getV3Quotes routesWithQuotes', routesWithQuotes);
+    // console.log('** getV3Quotes routesWithQuotes', routesWithQuotes);
 
     metric.putMetric(
       'V3QuotesLoad',
@@ -1381,8 +1381,8 @@ export class AlphaRouter
     for (const routeWithQuote of routesWithQuotes) {
       const [route, quotes] = routeWithQuote;
 
-      console.log('getV3Quotes route', route);
-      console.log('getV3Quotes quotes', quotes);
+      // console.log('getV3Quotes route', route);
+      // console.log('getV3Quotes quotes', quotes);
 
 
       for (let i = 0; i < quotes.length; i++) {
@@ -1395,11 +1395,11 @@ export class AlphaRouter
           initializedTicksCrossedList,
           gasEstimate,
         } = amountQuote;
-        console.log('getV3Quotes amountQuote', quote,
-        amount,
-        sqrtPriceX96AfterList,
-        initializedTicksCrossedList,
-        gasEstimate,);
+        // console.log('getV3Quotes amountQuote', quote,
+        // amount,
+        // sqrtPriceX96AfterList,
+        // initializedTicksCrossedList,
+        // gasEstimate,);
 
         if (
           !quote ||
@@ -1409,7 +1409,7 @@ export class AlphaRouter
         ) {
           log.debug(
             {
-              route: routeToString(route),
+              route: routeToString(route, this.chainId),
               amountQuote,
             },
             'Dropping a null V3 quote for route.'
@@ -1555,7 +1555,7 @@ export class AlphaRouter
         if (!quote) {
           log.debug(
             {
-              route: routeToString(route),
+              route: routeToString(route, this.chainId),
               amountQuote,
             },
             'Dropping a null V2 quote for route.'
@@ -1721,7 +1721,7 @@ export class AlphaRouter
         ) {
           log.debug(
             {
-              route: routeToString(route),
+              route: routeToString(route, this.chainId),
               amountQuote,
             },
             'Dropping a null mixed quote for route.'

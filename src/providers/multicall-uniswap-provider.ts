@@ -170,7 +170,7 @@ export class UniswapMulticallProvider extends IMulticallProvider<UniswapMultical
         gasLimit: gasLimitPerCall,
       };
     });
-    console.log('calls target', address)
+    // console.log('calls target', address)
 
 
     log.debug(
@@ -183,15 +183,15 @@ export class UniswapMulticallProvider extends IMulticallProvider<UniswapMultical
         blockTag: blockNumberOverride,
       });
 
-    console.log('callSameFunctionOnContractWithMultipleParams blockNumber', blockNumber)
-    console.log('callSameFunctionOnContractWithMultipleParams returnData', aggregateResults)
+    // console.log('callSameFunctionOnContractWithMultipleParams blockNumber', blockNumber)
+    // console.log('callSameFunctionOnContractWithMultipleParams returnData', aggregateResults)
 
     const results: Result<TReturn>[] = [];
 
     const gasUsedForSuccess: number[] = [];
     for (let i = 0; i < aggregateResults.length; i++) {
       const { success, returnData, gasUsed } = aggregateResults[i]!;
-      console.log('aggregateResults', i,'', success, returnData , 'gasUsed',gasUsed.toString() )
+      // console.log('aggregateResults', i,'', success, returnData , 'gasUsed',gasUsed.toString() )
 
       // Return data "0x" is sometimes returned for invalid pools.
       if (!success || returnData.length <= 2) {

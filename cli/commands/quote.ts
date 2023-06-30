@@ -254,7 +254,8 @@ export class Quote extends BaseCommand {
       blockNumber,
       estimatedGasUsed,
       gasPriceWei,
-      simulationStatus
+      simulationStatus,
+      chainId
     );
   }
 }
