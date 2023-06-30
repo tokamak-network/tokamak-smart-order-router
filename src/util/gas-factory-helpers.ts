@@ -29,9 +29,12 @@ export async function getV2NativePool(
 ): Promise<Pair | null> {
   const chainId = token.chainId as ChainId;
   const weth = WRAPPED_NATIVE_CURRENCY[chainId]!;
-
+  // console.log('weth',weth)
   const poolAccessor = await poolProvider.getPools([[weth, token]]);
+  // console.log('poolAccessor',poolAccessor)
+
   const pool = poolAccessor.getPool(weth, token);
+  // console.log('pool',pool)
 
   if (!pool || pool.reserve0.equalTo(0) || pool.reserve1.equalTo(0)) {
     log.error(
@@ -268,7 +271,7 @@ export async function calculateGasUsed(
       route.methodParameters!.calldata,
       l2GasData as ArbitrumGasData
     )[1];
-  } else if ([ChainId.OPTIMISM, ChainId.OPTIMISTIC_KOVAN].includes(chainId)) {
+  } else if ([ChainId.OPTIMISM, ChainId.OPTIMISTIC_KOVAN, ChainId.TITAN, ChainId.TOKAMAK_GOERLI].includes(chainId)) {
     l2toL1FeeInWei = calculateOptimismToL1FeeFromCalldata(
       route.methodParameters!.calldata,
       l2GasData as OptimismGasData
@@ -278,6 +281,8 @@ export async function calculateGasUsed(
   // add l2 to l1 fee and wrap fee to native currency
   const gasCostInWei = gasPriceWei.mul(simulatedGasUsed).add(l2toL1FeeInWei);
   const nativeCurrency = WRAPPED_NATIVE_CURRENCY[chainId];
+  console.log('nativeCurrency', nativeCurrency);
+
   const costNativeCurrency = getGasCostInNativeCurrency(
     nativeCurrency,
     gasCostInWei

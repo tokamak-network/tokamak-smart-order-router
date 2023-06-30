@@ -209,12 +209,12 @@ export const NATIVE_NAMES_BY_ID: { [chainId: number]: string[] } = {
   [ChainId.TOKAMAK_GOERLI]: [
     'ETH',
     'ETHER',
-    '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee',
+    '0xdeaddeaddeaddeaddeaddeaddeaddeaddead0000',
   ],
   [ChainId.TITAN]: [
     'ETH',
     'ETHER',
-    '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee',
+    '0xdeaddeaddeaddeaddeaddeaddeaddeaddead0000',
   ],
 };
 

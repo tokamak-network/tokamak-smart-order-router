@@ -513,7 +513,7 @@ export async function getBestSwapRouteBy(
       routeUSDGasEstimates: _.map(
         bestSwap,
         (b) =>
-          `${b.percent}% ${routeToString(b.route)} ${b.gasCostInUSD.toExact()}`
+          `${b.percent}% ${routeToString(b.route, chainId)} ${b.gasCostInUSD.toExact()}`
       ),
       flatL1GasCostUSD: gasCostL1USD.toExact(),
     },

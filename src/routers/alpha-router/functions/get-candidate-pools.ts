@@ -226,7 +226,7 @@ export async function getV3CandidatePools({
   const allPoolsRaw = await subgraphProvider.getPools(tokenIn, tokenOut, {
     blockNumber,
   });
-  console.log("getV3CandidatePools allPoolsRaw", allPoolsRaw);
+  // console.log("getV3CandidatePools allPoolsRaw", allPoolsRaw);
 
   log.info(
     { samplePools: allPoolsRaw.slice(0, 3) },
@@ -270,13 +270,13 @@ export async function getV3CandidatePools({
       filteredPools.push(pool);
     }
   }
-  console.log("filteredPools  ", filteredPools);
+  // console.log("filteredPools  ", filteredPools);
 
   const subgraphPoolsSorted = _(filteredPools)
     .sortBy((tokenListPool) => -tokenListPool.tvlUSD)
     .value();
 
-  console.log("subgraphPoolsSorted  ", subgraphPoolsSorted);
+  // console.log("subgraphPoolsSorted  ", subgraphPoolsSorted);
 
 
   log.info(
@@ -289,7 +289,7 @@ export async function getV3CandidatePools({
       .map((pool) => pool.id)
       .forEach((poolAddress) => poolAddressesSoFar.add(poolAddress));
   };
-  console.log("addToAddressSet  ", addToAddressSet);
+  // console.log("addToAddressSet  ", addToAddressSet);
 
   const baseTokens = baseTokensByChain[chainId] ?? [];
 
@@ -313,7 +313,7 @@ export async function getV3CandidatePools({
     .slice(0, topNWithBaseToken)
     .value();
 
-  console.log("topByBaseWithTokenIn  ", topByBaseWithTokenIn);
+  // console.log("topByBaseWithTokenIn  ", topByBaseWithTokenIn);
 
 
   const topByBaseWithTokenOut = _(baseTokens)
@@ -337,7 +337,7 @@ export async function getV3CandidatePools({
     .value();
 
 
-  console.log("topByBaseWithTokenOut  ", topByBaseWithTokenOut);
+  // console.log("topByBaseWithTokenOut  ", topByBaseWithTokenOut);
 
   let top2DirectSwapPool = _(subgraphPoolsSorted)
     .filter((subgraphPool) => {
@@ -353,7 +353,7 @@ export async function getV3CandidatePools({
     .value();
 
 
-  console.log("top2DirectSwapPool  ", top2DirectSwapPool);
+  // console.log("top2DirectSwapPool  ", top2DirectSwapPool);
 
   if (top2DirectSwapPool.length == 0 && topNDirectSwaps > 0) {
     // If we requested direct swap pools but did not find any in the subgraph query.
@@ -388,7 +388,7 @@ export async function getV3CandidatePools({
 
   const wrappedNativeAddress = WRAPPED_NATIVE_CURRENCY[chainId]?.address;
 
-  console.log("wrappedNativeAddress  ", wrappedNativeAddress);
+  // console.log("wrappedNativeAddress  ", wrappedNativeAddress);
 
   // Main reason we need this is for gas estimates, only needed if token out is not native.
   // We don't check the seen address set because if we've already added pools for getting native quotes

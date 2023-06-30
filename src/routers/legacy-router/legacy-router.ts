@@ -230,7 +230,7 @@ export class LegacyRouter {
     const quotes100Percent = _.map(
       quotesRaw,
       ([route, quotes]: RouteWithQuotes<V3Route>) =>
-        `${routeToString(route)} : ${quotes[0]?.quote?.toString()}`
+        `${routeToString(route, this.chainId)} : ${quotes[0]?.quote?.toString()}`
     );
     log.info({ quotes100Percent }, '100% Quotes');
 
@@ -291,7 +291,7 @@ export class LegacyRouter {
       const { quote, amount } = quotes[0]!;
 
       if (!quote) {
-        Logger.globalLogger().debug(`No quote for ${routeToString(route)}`);
+        Logger.globalLogger().debug(`No quote for ${routeToString(route, this.chainId)}`);
         continue;
       }
 
@@ -336,7 +336,7 @@ export class LegacyRouter {
       log.debug(
         `Quote: ${rq.amount.toFixed(
           Math.min(rq.amount.currency.decimals, 2)
-        )} Route: ${routeToString(rq.route)}`
+        )} Route: ${routeToString(rq.route, this.chainId)}`
       );
     }
 

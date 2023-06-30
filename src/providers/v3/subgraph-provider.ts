@@ -107,7 +107,7 @@ export class V3SubgraphProvider implements IV3SubgraphProvider {
       : undefined;
 
 
-    console.log("getPools ",_tokenIn, _tokenOut,'blockNumber', blockNumber);
+    // console.log("getPools ",_tokenIn, _tokenOut,'blockNumber', blockNumber);
 
     const query = gql`
       query getPools($pageSize: Int!, $id: String) {
@@ -133,7 +133,7 @@ export class V3SubgraphProvider implements IV3SubgraphProvider {
       }
     `;
 
-    console.log("query ",query);
+    // console.log("query ",query);
 
 
     let pools: RawV3SubgraphPool[] = [];
@@ -170,7 +170,7 @@ export class V3SubgraphProvider implements IV3SubgraphProvider {
             lastId = pools[pools.length - 1]!.id;
           } while (poolsPage.length > 0);
 
-          console.log("** getPools  ",pools);
+          // console.log("** getPools  ",pools);
 
 
           return pools;

@@ -1,6 +1,7 @@
 import { BigNumber } from '@ethersproject/bignumber';
 import { Token } from '@uniswap/sdk-core';
 import { Pair } from '@uniswap/v2-sdk';
+import { Pool } from '@uniswap/v3-sdk';
 import retry, { Options as RetryOptions } from 'async-retry';
 import _ from 'lodash';
 
@@ -107,7 +108,7 @@ export class V2PoolProvider implements IV2PoolProvider {
       `getPools called with ${tokenPairs.length} token pairs. Deduped down to ${poolAddressSet.size}`
     );
 
-    console.log('sortedPoolAddresses',sortedPoolAddresses);
+    // console.log('sortedPoolAddresses',sortedPoolAddresses);
 
     const reservesResults = await this.getPoolsData<IReserves>(
       sortedPoolAddresses,
@@ -122,7 +123,7 @@ export class V2PoolProvider implements IV2PoolProvider {
           : ``
       }`
     );
-    console.log('reservesResults',reservesResults);
+    // console.log('reservesResults',reservesResults);
 
     const poolAddressToPool: { [poolAddress: string]: Pair } = {};
 
@@ -164,7 +165,7 @@ export class V2PoolProvider implements IV2PoolProvider {
       );
     }
 
-    console.log('poolAddressToPool',poolAddressToPool);
+    // console.log('poolAddressToPool',poolAddressToPool);
 
     const poolStrs = _.map(Object.values(poolAddressToPool), poolToString);
 
@@ -196,9 +197,21 @@ export class V2PoolProvider implements IV2PoolProvider {
     if (cachedAddress) {
       return { poolAddress: cachedAddress, token0, token1 };
     }
+    // console.log('pair getPoolAddress token0 ', token0)
+    // console.log('pair getPoolAddress token1 ', token1)
+    let poolAddress ;
 
-    const poolAddress = Pair.getAddress(token0, token1);
+    let initCodeHashManualOverride:string
+    let factoryAddressOverride:string
+    if(token0.chainId == 5050 || token0.chainId == 55004){
+      factoryAddressOverride = '0x8C2351935011CfEccA4Ea08403F127FB782754AC'
+      initCodeHashManualOverride = '0xa598dd2fba360510c5a8f02f44423a4468e902df5857dbce3ca162a43a3a31ff'
+      poolAddress = Pool.getAddress(token0, token1, 3000, initCodeHashManualOverride, factoryAddressOverride );
+    } else {
+      poolAddress = Pair.getAddress(token0, token1);
+    }
 
+    // console.log('pair poolAddress', poolAddress)
     this.POOL_ADDRESS_CACHE[cacheKey] = poolAddress;
 
     return { poolAddress, token0, token1 };

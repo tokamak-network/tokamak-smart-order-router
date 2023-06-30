@@ -225,12 +225,7 @@ export class V3PoolProvider implements IV3PoolProvider {
       return { poolAddress: cachedAddress, token0, token1 };
     }
 
-    let poolAddress = computePoolAddress({
-      factoryAddress: V3_CORE_FACTORY_ADDRESSES[this.chainId]!,
-      tokenA: token0,
-      tokenB: token1,
-      fee: feeAmount,
-    });
+    let poolAddress ;
 
     if(this.chainId == ChainId.TITAN  || this.chainId == ChainId.TOKAMAK_GOERLI) {
       poolAddress = computePoolAddress({
@@ -240,8 +235,19 @@ export class V3PoolProvider implements IV3PoolProvider {
         fee: feeAmount,
         initCodeHashManualOverride: '0xa598dd2fba360510c5a8f02f44423a4468e902df5857dbce3ca162a43a3a31ff'
       });
+      // console.log('getPoolAddress initCodeHashManualOverride ')
+    } else {
+      poolAddress = computePoolAddress({
+        factoryAddress: V3_CORE_FACTORY_ADDRESSES[this.chainId]!,
+        tokenA: token0,
+        tokenB: token1,
+        fee: feeAmount,
+      });
+
+      // console.log('getPoolAddress no initCodeHashManualOverride ')
     }
     this.POOL_ADDRESS_CACHE[cacheKey] = poolAddress;
+
 
     return { poolAddress, token0, token1 };
   }
