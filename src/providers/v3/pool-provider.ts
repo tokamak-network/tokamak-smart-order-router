@@ -227,7 +227,7 @@ export class V3PoolProvider implements IV3PoolProvider {
 
     let poolAddress ;
 
-    if(this.chainId == ChainId.TITAN  || this.chainId == ChainId.TOKAMAK_GOERLI) {
+    if(this.chainId == ChainId.TITAN) {
       poolAddress = computePoolAddress({
         factoryAddress: V3_CORE_FACTORY_ADDRESSES[this.chainId]!,
         tokenA: token0,
@@ -236,6 +236,14 @@ export class V3PoolProvider implements IV3PoolProvider {
         initCodeHashManualOverride: '0xa598dd2fba360510c5a8f02f44423a4468e902df5857dbce3ca162a43a3a31ff'
       });
       // console.log('getPoolAddress initCodeHashManualOverride ')
+    } else if(this.chainId == ChainId.TOKAMAK_GOERLI) {
+        poolAddress = computePoolAddress({
+          factoryAddress: V3_CORE_FACTORY_ADDRESSES[this.chainId]!,
+          tokenA: token0,
+          tokenB: token1,
+          fee: feeAmount,
+          initCodeHashManualOverride: '0xe34f199b19b2b4f47f68442619d555527d244f78a3297ea89325f843f87b8b54'
+        });
     } else {
       poolAddress = computePoolAddress({
         factoryAddress: V3_CORE_FACTORY_ADDRESSES[this.chainId]!,
