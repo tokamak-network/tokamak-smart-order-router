@@ -204,8 +204,8 @@ export class V2PoolProvider implements IV2PoolProvider {
     let initCodeHashManualOverride:string
     let factoryAddressOverride:string
     if(token0.chainId == 55004){
-      factoryAddressOverride = '0x8C2351935011CfEccA4Ea08403F127FB782754AC'
-      initCodeHashManualOverride = '0xa598dd2fba360510c5a8f02f44423a4468e902df5857dbce3ca162a43a3a31ff'
+      factoryAddressOverride = '0x755Ba335013C07CE35C9A2dd5746617Ac4c6c799'
+      initCodeHashManualOverride = '0xe34f199b19b2b4f47f68442619d555527d244f78a3297ea89325f843f87b8b54'
       poolAddress = Pool.getAddress(token0, token1, 3000, initCodeHashManualOverride, factoryAddressOverride );
 
     } else if (token0.chainId == 5050){

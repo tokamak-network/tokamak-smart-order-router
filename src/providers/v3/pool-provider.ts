@@ -233,7 +233,7 @@ export class V3PoolProvider implements IV3PoolProvider {
         tokenA: token0,
         tokenB: token1,
         fee: feeAmount,
-        initCodeHashManualOverride: '0xa598dd2fba360510c5a8f02f44423a4468e902df5857dbce3ca162a43a3a31ff'
+        initCodeHashManualOverride: '0xe34f199b19b2b4f47f68442619d555527d244f78a3297ea89325f843f87b8b54'
       });
       // console.log('getPoolAddress initCodeHashManualOverride ')
     } else if(this.chainId == ChainId.TOKAMAK_GOERLI) {
