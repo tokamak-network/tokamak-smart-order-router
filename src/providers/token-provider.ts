@@ -310,7 +310,7 @@ export const USDC_SEPOLIA = new Token(
 export const USDT_SEPOLIA = new Token(
   ChainId.SEPOLIA,
   '0x42d3b260c761cD5da022dB56Fe2F89c4A909b04A',
-  18,
+  6,
   'USDT',
   'Tether USD'
 );
