@@ -1051,7 +1051,8 @@ export class AlphaRouter
         protocolsSet.has(Protocol.MIXED) &&
         (this.chainId === ChainId.MAINNET || this.chainId === ChainId.GÖRLI
           || this.chainId === ChainId.TOKAMAK_GOERLI
-          || this.chainId === ChainId.TITAN ) &&
+          || this.chainId === ChainId.TITAN
+          || this.chainId === ChainId.SEPOLIA ) &&
         tradeType == TradeType.EXACT_INPUT
       ) {
         log.info(

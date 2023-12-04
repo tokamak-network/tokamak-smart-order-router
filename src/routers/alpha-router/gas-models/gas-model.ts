@@ -17,6 +17,7 @@ import {
   DAI_ROPSTEN,
   TON_TITAN,
   TON_TOKAMAK_GOERLI,
+  TOS_SEPOLIA,
   TOS_TITAN,
   TOS_TOKAMAK_GOERLI,
   USDC_ARBITRUM,
@@ -30,6 +31,7 @@ import {
   USDC_OPTIMISTIC_KOVAN,
   USDC_POLYGON,
   USDC_ROPSTEN,
+  USDC_SEPOLIA,
   USDC_TITAN,
   USDC_TOKAMAK_GOERLI,
   USDT_ARBITRUM,
@@ -40,9 +42,11 @@ import {
   USDT_OPTIMISM,
   USDT_OPTIMISTIC_KOVAN,
   USDT_ROPSTEN,
+  USDT_SEPOLIA,
   USDT_TITAN,
   USDT_TOKAMAK_GOERLI,
   WBTC_GÖRLI,
+  WTON_SEPOLIA,
 } from '../../../providers/token-provider';
 import { IV2PoolProvider } from '../../../providers/v2/pool-provider';
 import {
@@ -83,6 +87,7 @@ export const usdGasTokensByChain: { [chainId in ChainId]?: Token[] } = {
   [ChainId.MOONBEAM]: [USDC_MOONBEAM],
   [ChainId.TOKAMAK_GOERLI]: [TON_TOKAMAK_GOERLI, TOS_TOKAMAK_GOERLI, USDC_TOKAMAK_GOERLI, USDT_TOKAMAK_GOERLI],
   [ChainId.TITAN]: [TON_TITAN, TOS_TITAN, USDC_TITAN, USDT_TITAN],
+  [ChainId.SEPOLIA]: [WTON_SEPOLIA, TOS_SEPOLIA, USDC_SEPOLIA, USDT_SEPOLIA],
 };
 
 export type L1ToL2GasCosts = {

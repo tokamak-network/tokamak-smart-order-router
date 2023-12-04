@@ -4,12 +4,16 @@ import {
   DAI_MAINNET,
   ITokenProvider,
   TON_TITAN,
+  TOS_SEPOLIA,
   TOS_TITAN,
   USDC_MAINNET,
+  USDC_SEPOLIA,
   USDT_MAINNET,
+  USDT_SEPOLIA,
   WBTC_MAINNET,
   WMATIC_POLYGON,
   WMATIC_POLYGON_MUMBAI,
+  WTON_SEPOLIA,
 } from '../../providers/token-provider';
 import { ChainId, WRAPPED_NATIVE_CURRENCY } from '../../util/chains';
 
@@ -56,6 +60,13 @@ export const BASES_TO_CHECK_TRADES_AGAINST = (
       WRAPPED_NATIVE_CURRENCY[ChainId.TITAN]!,
       TON_TITAN,
       TOS_TITAN
+    ],
+    [ChainId.SEPOLIA]: [
+      WRAPPED_NATIVE_CURRENCY[ChainId.SEPOLIA]!,
+      WTON_SEPOLIA,
+      TOS_SEPOLIA,
+      USDC_SEPOLIA,
+      USDT_SEPOLIA,
     ],
   };
 };

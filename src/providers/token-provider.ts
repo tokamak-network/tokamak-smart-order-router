@@ -299,6 +299,39 @@ export const UNI_GÖRLI = new Token(
   'Uni token'
 );
 
+
+export const USDC_SEPOLIA = new Token(
+  ChainId.SEPOLIA,
+  '0x693a591A27750eED2A0e14BC73bB1F313116a1cb',
+  6,
+  'USDC',
+  'USD Coin'
+);
+export const USDT_SEPOLIA = new Token(
+  ChainId.SEPOLIA,
+  '0x42d3b260c761cD5da022dB56Fe2F89c4A909b04A',
+  18,
+  'USDT',
+  'Tether USD'
+);
+
+export const WTON_SEPOLIA = new Token(
+  ChainId.SEPOLIA,
+  '0x79e0d92670106c85e9067b56b8f674340dca0bbd',
+  27,
+  'WTON',
+  'Wrapped TON'
+);
+
+export const TOS_SEPOLIA = new Token(
+  ChainId.SEPOLIA,
+  '0xff3ef745d9878afe5934ff0b130868afddbc58e8',
+  18,
+  'TOS',
+  'TONSTARTER'
+);
+
+
 export const USDC_KOVAN = new Token(
   ChainId.KOVAN,
   '0x31eeb2d0f9b6fd8642914ab10f4dd473677d80df',
@@ -769,12 +802,23 @@ export const TON_ON = (chainId: ChainId): Token => {
   }
 };
 
+export const WTON_ON = (chainId: ChainId): Token => {
+  switch (chainId) {
+    case ChainId.SEPOLIA:
+      return WTON_SEPOLIA;
+    default:
+      throw new Error(`Chain id: ${chainId} not supported`);
+  }
+};
+
 export const TOS_ON = (chainId: ChainId): Token => {
   switch (chainId) {
     case ChainId.TOKAMAK_GOERLI:
       return TOS_TOKAMAK_GOERLI;
     case ChainId.TITAN:
       return TOS_TITAN;
+    case ChainId.SEPOLIA:
+      return TOS_SEPOLIA;
     default:
       throw new Error(`Chain id: ${chainId} not supported`);
   }
@@ -856,6 +900,8 @@ export const USDT_ON = (chainId: ChainId): Token => {
       return USDT_RINKEBY;
     case ChainId.GÖRLI:
       return USDT_GÖRLI;
+    case ChainId.SEPOLIA:
+      return USDT_SEPOLIA;
     case ChainId.KOVAN:
       return USDT_KOVAN;
     case ChainId.OPTIMISM:
@@ -885,6 +931,8 @@ export const USDC_ON = (chainId: ChainId): Token => {
       return USDC_RINKEBY;
     case ChainId.GÖRLI:
       return USDC_GÖRLI;
+    case ChainId.SEPOLIA:
+      return USDC_SEPOLIA;
     case ChainId.KOVAN:
       return USDC_KOVAN;
     case ChainId.OPTIMISM:

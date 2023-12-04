@@ -63,6 +63,8 @@ const SUBGRAPH_URL_BY_CHAIN: { [chainId in ChainId]?: string } = {
     'https://thegraph.titan-goerli.tokamak.network/subgraphs/name/tokamak/titan-uniswap-subgraph',
   [ChainId.TITAN]:
     'https://thegraph.titan.tokamak.network/subgraphs/name/cd4761/uniswapv3-tokamak/graphql',
+  [ChainId.SEPOLIA]:
+  'https://api.studio.thegraph.com/query/60295/tokamak-uniswapv3/v0.0.1/graphql',
 };
 
 const PAGE_SIZE = 1000; // 1k is max possible query size from subgraph.

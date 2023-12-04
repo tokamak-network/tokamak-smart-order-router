@@ -12,6 +12,7 @@ export const BASE_SWAP_COST = (id: ChainId): BigNumber => {
     case ChainId.ROPSTEN:
     case ChainId.RINKEBY:
     case ChainId.GÖRLI:
+    case ChainId.SEPOLIA:
     case ChainId.OPTIMISM:
     case ChainId.OPTIMISTIC_KOVAN:
     case ChainId.KOVAN:
@@ -44,6 +45,7 @@ export const COST_PER_INIT_TICK = (id: ChainId): BigNumber => {
     case ChainId.ROPSTEN:
     case ChainId.RINKEBY:
     case ChainId.GÖRLI:
+    case ChainId.SEPOLIA:
     case ChainId.KOVAN:
       return BigNumber.from(31000);
     case ChainId.OPTIMISM:
@@ -75,6 +77,7 @@ export const COST_PER_HOP = (id: ChainId): BigNumber => {
     case ChainId.ROPSTEN:
     case ChainId.RINKEBY:
     case ChainId.GÖRLI:
+    case ChainId.SEPOLIA:
     case ChainId.KOVAN:
     case ChainId.OPTIMISM:
     case ChainId.OPTIMISTIC_KOVAN:
