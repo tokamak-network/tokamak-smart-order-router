@@ -24,10 +24,12 @@ import {
   DAI_POLYGON_MUMBAI,
   DAI_RINKEBY_1,
   DAI_RINKEBY_2,
+  ETH_THANOS_SEPOLIA_TEST,
   FEI_MAINNET,
   ITokenProvider,
   TON_TITAN,
   TON_TOKAMAK_GOERLI,
+  TOS_THANOS_SEPOLIA_TEST,
   TOS_TITAN,
   TOS_TOKAMAK_GOERLI,
   USDC_ARBITRUM,
@@ -38,6 +40,7 @@ import {
   USDC_OPTIMISM,
   USDC_OPTIMISTIC_KOVAN,
   USDC_POLYGON,
+  USDC_THANOS_SEPOLIA_TEST,
   USDC_TITAN,
   USDC_TOKAMAK_GOERLI,
   USDT_ARBITRUM,
@@ -45,6 +48,7 @@ import {
   USDT_MAINNET,
   USDT_OPTIMISM,
   USDT_OPTIMISTIC_KOVAN,
+  USDT_THANOS_SEPOLIA_TEST,
   USDT_TITAN,
   USDT_TOKAMAK_GOERLI,
   WBTC_ARBITRUM,
@@ -189,6 +193,12 @@ const baseTokensByChain: { [chainId in ChainId]?: Token[] } = {
     TOS_TITAN,
     USDC_TITAN,
     USDT_TITAN,
+  ],
+  [ChainId.THANOS_SEPOLIA_TEST]: [
+    ETH_THANOS_SEPOLIA_TEST,
+    TOS_THANOS_SEPOLIA_TEST,
+    USDC_THANOS_SEPOLIA_TEST,
+    USDT_THANOS_SEPOLIA_TEST,
   ],
 };
 
@@ -790,7 +800,31 @@ export async function getV2CandidatePools({
   // theres no need to add more.
   // Note: we do not need to check other native currencies for the V2 Protocol
   let topByEthQuoteTokenPool: V2SubgraphPool[] = [];
-  if (
+  if( ChainId.THANOS_SEPOLIA_TEST &&
+    tokenOut.symbol != 'TON' &&
+    tokenOut.symbol != 'WTON'
+  ) {
+    topByEthQuoteTokenPool = _(subgraphPoolsSorted)
+      .filter((subgraphPool) => {
+        if (routeType == TradeType.EXACT_INPUT) {
+          return (
+            (subgraphPool.token0.id == wethAddress &&
+              subgraphPool.token1.id == tokenOutAddress) ||
+            (subgraphPool.token1.id == wethAddress &&
+              subgraphPool.token0.id == tokenOutAddress)
+          );
+        } else {
+          return (
+            (subgraphPool.token0.id == wethAddress &&
+              subgraphPool.token1.id == tokenInAddress) ||
+            (subgraphPool.token1.id == wethAddress &&
+              subgraphPool.token0.id == tokenInAddress)
+          );
+        }
+      })
+      .slice(0, 1)
+      .value();
+  } else if (
     tokenOut.symbol != 'WETH' &&
     tokenOut.symbol != 'WETH9' &&
     tokenOut.symbol != 'ETH'

@@ -33,6 +33,7 @@ export type TokenAccessor = {
   getAllTokens: () => Token[];
 };
 
+
 // TITAN
 export const USDC_TITAN = new Token(
   ChainId.TITAN,
@@ -299,7 +300,8 @@ export const UNI_GÖRLI = new Token(
   'Uni token'
 );
 
-
+//===========================
+// SEPOLIA
 export const USDC_SEPOLIA = new Token(
   ChainId.SEPOLIA,
   '0x693a591A27750eED2A0e14BC73bB1F313116a1cb',
@@ -331,6 +333,64 @@ export const TOS_SEPOLIA = new Token(
   'TONSTARTER'
 );
 
+//===========================
+// THANOS_SEPOLIA_TEST
+export const ETH_THANOS_SEPOLIA_TEST = new Token(
+  ChainId.THANOS_SEPOLIA_TEST,
+  '0x4200000000000000000000000000000000000486',
+  18,
+  'ETH',
+  'ETH'
+);
+
+export const USDC_THANOS_SEPOLIA_TEST = new Token(
+  ChainId.THANOS_SEPOLIA_TEST,
+  '0x69CC158F7E0103880aBC4f7d27daC22C1B62fFe5',
+  6,
+  'USDC',
+  'USD Coin'
+);
+export const USDT_THANOS_SEPOLIA_TEST = new Token(
+  ChainId.THANOS_SEPOLIA_TEST,
+  '0xb2d344984f92130AF8925eD283018d21673Bd17d',
+  6,
+  'USDT',
+  'Tether USD'
+);
+
+export const TOS_THANOS_SEPOLIA_TEST = new Token(
+  ChainId.THANOS_SEPOLIA_TEST,
+  '0xec32659a42904a96d415468d3a213e57b13ee5c0',
+  18,
+  'TOS',
+  'TONStarter'
+);
+
+export const AURA_THANOS_SEPOLIA_TEST = new Token(
+  ChainId.THANOS_SEPOLIA_TEST,
+  '0x69a3414b4a44819b55c00ab3eca9c24411ceae31',
+  18,
+  'AURA',
+  'AURA'
+);
+
+export const DOC_THANOS_SEPOLIA_TEST = new Token(
+  ChainId.THANOS_SEPOLIA_TEST,
+  '0xe56d096c4d626f31769a5b11bc9e42a95a1cfb1a',
+  18,
+  'DOC',
+  'DOC'
+);
+
+export const LYDA_THANOS_SEPOLIA_TEST = new Token(
+  ChainId.THANOS_SEPOLIA_TEST,
+  '0xc44f68197e9e8bd59e08b522ad688b412a22df5d',
+  18,
+  'LYDA',
+  'LYDA'
+);
+
+//===========================
 
 export const USDC_KOVAN = new Token(
   ChainId.KOVAN,
@@ -791,6 +851,15 @@ export class TokenProvider implements ITokenProvider {
   }
 }
 
+export const ETH_ON = (chainId: ChainId): Token => {
+  switch (chainId) {
+    case ChainId.THANOS_SEPOLIA_TEST:
+      return ETH_THANOS_SEPOLIA_TEST;
+    default:
+      throw new Error(`Chain id: ${chainId} not supported`);
+  }
+};
+
 export const TON_ON = (chainId: ChainId): Token => {
   switch (chainId) {
     case ChainId.TOKAMAK_GOERLI:
@@ -819,6 +888,8 @@ export const TOS_ON = (chainId: ChainId): Token => {
       return TOS_TITAN;
     case ChainId.SEPOLIA:
       return TOS_SEPOLIA;
+    case ChainId.THANOS_SEPOLIA_TEST:
+        return TOS_THANOS_SEPOLIA_TEST;
     default:
       throw new Error(`Chain id: ${chainId} not supported`);
   }
@@ -828,6 +899,8 @@ export const AURA_ON = (chainId: ChainId): Token => {
   switch (chainId) {
     case ChainId.TOKAMAK_GOERLI:
       return AURA_TOKAMAK_GOERLI;
+    case ChainId.THANOS_SEPOLIA_TEST:
+      return AURA_THANOS_SEPOLIA_TEST;
     default:
       throw new Error(`Chain id: ${chainId} not supported`);
   }
@@ -837,6 +910,8 @@ export const DOC_ON = (chainId: ChainId): Token => {
   switch (chainId) {
     case ChainId.TOKAMAK_GOERLI:
       return DOC_TOKAMAK_GOERLI;
+    case ChainId.THANOS_SEPOLIA_TEST:
+      return DOC_THANOS_SEPOLIA_TEST;
     default:
       throw new Error(`Chain id: ${chainId} not supported`);
   }
@@ -846,6 +921,8 @@ export const LYDA_ON = (chainId: ChainId): Token => {
   switch (chainId) {
     case ChainId.TOKAMAK_GOERLI:
       return LYDA_TOKAMAK_GOERLI;
+    case ChainId.THANOS_SEPOLIA_TEST:
+      return LYDA_THANOS_SEPOLIA_TEST;
     default:
       throw new Error(`Chain id: ${chainId} not supported`);
   }
@@ -916,6 +993,8 @@ export const USDT_ON = (chainId: ChainId): Token => {
       return USDT_TOKAMAK_GOERLI;
     case ChainId.TITAN:
       return USDT_TITAN;
+    case ChainId.THANOS_SEPOLIA_TEST:
+      return USDT_THANOS_SEPOLIA_TEST;
     default:
       throw new Error(`Chain id: ${chainId} not supported`);
   }
@@ -957,6 +1036,8 @@ export const USDC_ON = (chainId: ChainId): Token => {
       return USDC_TOKAMAK_GOERLI;
     case ChainId.TITAN:
       return USDC_TITAN;
+    case ChainId.THANOS_SEPOLIA_TEST:
+      return USDC_THANOS_SEPOLIA_TEST;
     default:
       throw new Error(`Chain id: ${chainId} not supported`);
   }

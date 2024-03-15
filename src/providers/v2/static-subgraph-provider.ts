@@ -50,6 +50,7 @@ const BASES_TO_CHECK_TRADES_AGAINST: ChainTokenList = {
   [ChainId.MOONBEAM]: [],
   [ChainId.TOKAMAK_GOERLI]: [],
   [ChainId.TITAN]: [],
+  [ChainId.THANOS_SEPOLIA_TEST]: [],
 };
 
 /**
