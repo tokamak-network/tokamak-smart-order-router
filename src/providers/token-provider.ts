@@ -32,7 +32,37 @@ export type TokenAccessor = {
   getTokenBySymbol(symbol: string): Token | undefined;
   getAllTokens: () => Token[];
 };
+// TITAN Sepolia
+export const USDC_TITAN_SEPOLIA = new Token(
+  ChainId.TITAN_SEPOLIA,
+  '0xFF3Ef745D9878AfE5934Ff0b130868AFDDbc58e8',
+  6,
+  'USDC',
+  'USD//C'
+);
+export const USDT_TITAN_SEPOLIA = new Token(
+  ChainId.TITAN_SEPOLIA,
+  '0x79E0d92670106c85E9067b56B8F674340dCa0Bbd',
+  6,
+  'USDT',
+  'Tether USD'
+);
 
+export const TON_TITAN_SEPOLIA = new Token(
+  ChainId.TITAN_SEPOLIA,
+  '0x7c6b91d9be155a6db01f749217d76ff02a7227f2',
+  18,
+  'TON',
+  'TOKAMAK'
+);
+
+export const TOS_TITAN_SEPOLIA = new Token(
+  ChainId.TITAN_SEPOLIA,
+  '0xd08a2917653d4e460893203471f0000826fb4034',
+  18,
+  'TOS',
+  'TONSTARTER'
+);
 
 // TITAN
 export const USDC_TITAN = new Token(
@@ -866,6 +896,8 @@ export const TON_ON = (chainId: ChainId): Token => {
       return TON_TOKAMAK_GOERLI;
     case ChainId.TITAN:
       return TON_TITAN;
+    case ChainId.TITAN_SEPOLIA:
+      return TON_TITAN_SEPOLIA;
     default:
       throw new Error(`Chain id: ${chainId} not supported`);
   }
@@ -886,6 +918,8 @@ export const TOS_ON = (chainId: ChainId): Token => {
       return TOS_TOKAMAK_GOERLI;
     case ChainId.TITAN:
       return TOS_TITAN;
+    case ChainId.TITAN_SEPOLIA:
+      return TOS_TITAN_SEPOLIA;
     case ChainId.SEPOLIA:
       return TOS_SEPOLIA;
     case ChainId.THANOS_SEPOLIA_TEST:
@@ -993,6 +1027,8 @@ export const USDT_ON = (chainId: ChainId): Token => {
       return USDT_TOKAMAK_GOERLI;
     case ChainId.TITAN:
       return USDT_TITAN;
+    case ChainId.TITAN_SEPOLIA:
+      return USDT_TITAN_SEPOLIA;
     case ChainId.THANOS_SEPOLIA_TEST:
       return USDT_THANOS_SEPOLIA_TEST;
     default:
@@ -1036,6 +1072,8 @@ export const USDC_ON = (chainId: ChainId): Token => {
       return USDC_TOKAMAK_GOERLI;
     case ChainId.TITAN:
       return USDC_TITAN;
+    case ChainId.TITAN_SEPOLIA:
+      return USDC_TITAN_SEPOLIA;
     case ChainId.THANOS_SEPOLIA_TEST:
       return USDC_THANOS_SEPOLIA_TEST;
     default:

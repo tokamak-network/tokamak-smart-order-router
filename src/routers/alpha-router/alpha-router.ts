@@ -400,6 +400,7 @@ export class AlphaRouter
         case ChainId.TITAN:
         case ChainId.TOKAMAK_GOERLI:
         case ChainId.THANOS_SEPOLIA_TEST:
+        case ChainId.TITAN_SEPOLIA:
           this.onChainQuoteProvider = new OnChainQuoteProvider(
             chainId,
             provider,
@@ -1054,7 +1055,8 @@ export class AlphaRouter
           || this.chainId === ChainId.TOKAMAK_GOERLI
           || this.chainId === ChainId.TITAN
           || this.chainId === ChainId.SEPOLIA
-          || this.chainId === ChainId.THANOS_SEPOLIA_TEST ) &&
+          || this.chainId === ChainId.THANOS_SEPOLIA_TEST
+          || this.chainId === ChainId.TITAN_SEPOLIA ) &&
         tradeType == TradeType.EXACT_INPUT
       ) {
         log.info(

@@ -51,6 +51,7 @@ const BASES_TO_CHECK_TRADES_AGAINST: ChainTokenList = {
   [ChainId.TOKAMAK_GOERLI]: [],
   [ChainId.TITAN]: [],
   [ChainId.THANOS_SEPOLIA_TEST]: [],
+  [ChainId.TITAN_SEPOLIA]: [],
 };
 
 /**

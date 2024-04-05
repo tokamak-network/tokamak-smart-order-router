@@ -276,6 +276,7 @@ export async function calculateGasUsed(
       ChainId.OPTIMISM,
       ChainId.OPTIMISTIC_KOVAN,
       ChainId.TITAN,
+      ChainId.TITAN_SEPOLIA,
       ChainId.TOKAMAK_GOERLI,
       ChainId.THANOS_SEPOLIA_TEST
     ].includes(chainId)) {
