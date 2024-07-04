@@ -22,6 +22,7 @@ export enum ChainId {
   SEPOLIA = 11155111,
   THANOS_SEPOLIA_TEST = 111551118080,
   TITAN_SEPOLIA = 55007,
+  THANOS_SEPOLIA = 111551119090,
 }
 
 // WIP: Gnosis, Moonbeam
@@ -124,6 +125,8 @@ export const ID_TO_CHAIN_ID = (id: number): ChainId => {
       return ChainId.SEPOLIA;
     case 111551118080:
       return ChainId.THANOS_SEPOLIA_TEST;
+    case 111551119090:
+      return ChainId.THANOS_SEPOLIA;
     case 55007:
       return ChainId.TITAN_SEPOLIA;
     default:
@@ -153,6 +156,7 @@ export enum ChainName {
   TITAN = 'titan',
   THANOS_SEPOLIA_TEST = 'thanos-sepolia-test',
   TITAN_SEPOLIA = 'titan-sepolia',
+  THANOS_SEPOLIA = 'thanos-sepolia',
 }
 
 export enum NativeCurrencyName {
@@ -239,6 +243,11 @@ export const NATIVE_NAMES_BY_ID: { [chainId: number]: string[] } = {
     'ETHER',
     '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee',
   ],
+  [ChainId.THANOS_SEPOLIA]: [
+    'TON',
+    'TON',
+    '0xdeaddeaddeaddeaddeaddeaddeaddeaddead0000',
+  ],
   [ChainId.THANOS_SEPOLIA_TEST]: [
     'TON',
     'TON',
@@ -271,6 +280,7 @@ export const NATIVE_CURRENCY: { [chainId: number]: NativeCurrencyName } = {
   [ChainId.TOKAMAK_GOERLI]: NativeCurrencyName.ETHER,
   [ChainId.TITAN]: NativeCurrencyName.ETHER,
   [ChainId.SEPOLIA]: NativeCurrencyName.ETHER,
+  [ChainId.THANOS_SEPOLIA]: NativeCurrencyName.TON,
   [ChainId.THANOS_SEPOLIA_TEST]: NativeCurrencyName.TON,
   [ChainId.TITAN_SEPOLIA]: NativeCurrencyName.ETHER,
 };
@@ -317,6 +327,8 @@ export const ID_TO_NETWORK_NAME = (id: number): ChainName => {
       return ChainName.SEPOLIA;
     case 111551118080:
       return ChainName.THANOS_SEPOLIA_TEST;
+    case 111551119090:
+      return ChainName.THANOS_SEPOLIA;
     case 55007:
       return ChainName.TITAN_SEPOLIA;
     default:
@@ -364,6 +376,8 @@ export const ID_TO_PROVIDER = (id: ChainId): string => {
       return process.env.JSON_RPC_PROVIDER_TITAN!;
     case ChainId.SEPOLIA:
       return process.env.JSON_RPC_PROVIDER_SEPOLIA!;
+    case ChainId.THANOS_SEPOLIA:
+      return process.env.JSON_RPC_PROVIDER_THANOS_SEPOLIA!;
     case ChainId.THANOS_SEPOLIA_TEST:
       return process.env.JSON_RPC_PROVIDER_THANOS_SEPOLIA_TEST!;
     case ChainId.TITAN_SEPOLIA:
@@ -522,6 +536,13 @@ export const WRAPPED_NATIVE_CURRENCY: { [chainId in ChainId]: Token } = {
     18,
     'WETH',
     'Wrapped Ether'
+  ),
+  [ChainId.THANOS_SEPOLIA]: new Token(
+    ChainId.THANOS_SEPOLIA,
+    '0x4200000000000000000000000000000000000006',
+    18,
+    'WTON',
+    'Wrapped TON'
   ),
 };
 

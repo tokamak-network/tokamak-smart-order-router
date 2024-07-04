@@ -278,6 +278,7 @@ export async function calculateGasUsed(
       ChainId.TITAN,
       ChainId.TITAN_SEPOLIA,
       ChainId.TOKAMAK_GOERLI,
+      ChainId.THANOS_SEPOLIA,
       ChainId.THANOS_SEPOLIA_TEST
     ].includes(chainId)) {
     l2toL1FeeInWei = calculateOptimismToL1FeeFromCalldata(

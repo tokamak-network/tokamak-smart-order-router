@@ -37,6 +37,7 @@ export const BASE_SWAP_COST = (id: ChainId): BigNumber => {
     case ChainId.TITAN:
     case ChainId.TITAN_SEPOLIA:
     case ChainId.TOKAMAK_GOERLI:
+    case ChainId.THANOS_SEPOLIA:
     case ChainId.THANOS_SEPOLIA_TEST:
       return BigNumber.from(2000);
   }
@@ -70,6 +71,7 @@ export const COST_PER_INIT_TICK = (id: ChainId): BigNumber => {
     case ChainId.TITAN:
     case ChainId.TITAN_SEPOLIA:
     case ChainId.TOKAMAK_GOERLI:
+    case ChainId.THANOS_SEPOLIA:
     case ChainId.THANOS_SEPOLIA_TEST:
       return BigNumber.from(31000);
   }
@@ -103,6 +105,7 @@ export const COST_PER_HOP = (id: ChainId): BigNumber => {
     case ChainId.TITAN:
     case ChainId.TITAN_SEPOLIA:
     case ChainId.TOKAMAK_GOERLI:
+    case ChainId.THANOS_SEPOLIA:
     case ChainId.THANOS_SEPOLIA_TEST:
       return BigNumber.from(80000);
   }

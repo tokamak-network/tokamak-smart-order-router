@@ -69,6 +69,8 @@ const SUBGRAPH_URL_BY_CHAIN: { [chainId in ChainId]?: string } = {
     'https://graph-node.thanos-sepolia-test.tokamak.network/subgraphs/name/tokamak/thanos-sepolia-uniswap-subgraph',
   [ChainId.TITAN_SEPOLIA]:
     'https://graph-node.titan-sepolia.tokamak.network/subgraphs/name/tokamak/titan-sepolia-uniswap-subgraph',
+  [ChainId.THANOS_SEPOLIA]:
+    'https://graph-node.thanos-sepolia.tokamak.network/subgraphs/name/uniswap-subgraph/graphql',
 
 };
 

@@ -401,6 +401,7 @@ export class AlphaRouter
         case ChainId.TOKAMAK_GOERLI:
         case ChainId.THANOS_SEPOLIA_TEST:
         case ChainId.TITAN_SEPOLIA:
+        case ChainId.THANOS_SEPOLIA:
           this.onChainQuoteProvider = new OnChainQuoteProvider(
             chainId,
             provider,

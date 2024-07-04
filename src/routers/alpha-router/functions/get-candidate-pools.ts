@@ -24,12 +24,14 @@ import {
   DAI_POLYGON_MUMBAI,
   DAI_RINKEBY_1,
   DAI_RINKEBY_2,
+  ETH_THANOS_SEPOLIA,
   ETH_THANOS_SEPOLIA_TEST,
   FEI_MAINNET,
   ITokenProvider,
   TON_TITAN,
   TON_TITAN_SEPOLIA,
   TON_TOKAMAK_GOERLI,
+  TOS_THANOS_SEPOLIA,
   TOS_THANOS_SEPOLIA_TEST,
   TOS_TITAN,
   TOS_TITAN_SEPOLIA,
@@ -42,6 +44,7 @@ import {
   USDC_OPTIMISM,
   USDC_OPTIMISTIC_KOVAN,
   USDC_POLYGON,
+  USDC_THANOS_SEPOLIA,
   USDC_THANOS_SEPOLIA_TEST,
   USDC_TITAN,
   USDC_TITAN_SEPOLIA,
@@ -51,6 +54,7 @@ import {
   USDT_MAINNET,
   USDT_OPTIMISM,
   USDT_OPTIMISTIC_KOVAN,
+  USDT_THANOS_SEPOLIA,
   USDT_THANOS_SEPOLIA_TEST,
   USDT_TITAN,
   USDT_TITAN_SEPOLIA,
@@ -209,6 +213,12 @@ const baseTokensByChain: { [chainId in ChainId]?: Token[] } = {
     TOS_TITAN_SEPOLIA,
     USDC_TITAN_SEPOLIA,
     USDT_TITAN_SEPOLIA,
+  ],
+  [ChainId.THANOS_SEPOLIA]: [
+    ETH_THANOS_SEPOLIA,
+    TOS_THANOS_SEPOLIA,
+    USDC_THANOS_SEPOLIA,
+    USDT_THANOS_SEPOLIA,
   ],
 };
 
@@ -810,7 +820,8 @@ export async function getV2CandidatePools({
   // theres no need to add more.
   // Note: we do not need to check other native currencies for the V2 Protocol
   let topByEthQuoteTokenPool: V2SubgraphPool[] = [];
-  if( ChainId.THANOS_SEPOLIA_TEST &&
+  if(
+    (ChainId.THANOS_SEPOLIA_TEST || ChainId.THANOS_SEPOLIA) &&
     tokenOut.symbol != 'TON' &&
     tokenOut.symbol != 'WTON'
   ) {
