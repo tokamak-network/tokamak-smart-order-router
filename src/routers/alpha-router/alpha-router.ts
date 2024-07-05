@@ -1057,6 +1057,7 @@ export class AlphaRouter
           || this.chainId === ChainId.TITAN
           || this.chainId === ChainId.SEPOLIA
           || this.chainId === ChainId.THANOS_SEPOLIA_TEST
+          || this.chainId === ChainId.THANOS_SEPOLIA
           || this.chainId === ChainId.TITAN_SEPOLIA ) &&
         tradeType == TradeType.EXACT_INPUT
       ) {
