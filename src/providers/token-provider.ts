@@ -32,10 +32,11 @@ export type TokenAccessor = {
   getTokenBySymbol(symbol: string): Token | undefined;
   getAllTokens: () => Token[];
 };
+
 // TITAN Sepolia
 export const USDC_TITAN_SEPOLIA = new Token(
   ChainId.TITAN_SEPOLIA,
-  '0xFF3Ef745D9878AfE5934Ff0b130868AFDDbc58e8',
+  '0xB79DcFE624D0A69c5c2a206a99F240f1d2Ca1D80',
   6,
   'USDC',
   'USD//C'
