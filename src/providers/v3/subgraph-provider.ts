@@ -62,7 +62,7 @@ const SUBGRAPH_URL_BY_CHAIN: { [chainId in ChainId]?: string } = {
   [ChainId.TOKAMAK_GOERLI]:
     'https://thegraph.titan-goerli.tokamak.network/subgraphs/name/tokamak/titan-uniswap-subgraph',
   [ChainId.TITAN]:
-    'https://thegraph.titan.tokamak.network/subgraphs/name/cd4761/uniswapv3-tokamak/graphql',
+    'https://graph-node.titan.tokamak.network/subgraphs/name/tokamak/uniswap',
   [ChainId.SEPOLIA]:
     'https://api.studio.thegraph.com/query/60295/tokamak-uniswapv3/v0.0.3/graphql',
   [ChainId.THANOS_SEPOLIA_TEST]:
